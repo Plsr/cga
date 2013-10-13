@@ -11,12 +11,10 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 		static float houseWidth;
 		static float doorStartPosition;
-		static float houseHeight;
 
 	@Override public void turtleCommands() {
 		
-		
-		final float roofHeight = 100;
+		float houseHeight = 100;
 		float doorHeight = 40;
 		
 		/*Hintergrund zeichnen */
@@ -54,8 +52,8 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(houseHeight); //hoehe
 		
 		//Dach
-		float roofSideLength = roofSideLength(houseWidth, roofHeight);
-		float bottomAngle = bottomAngle(roofHeight, roofSideLength);
+		float roofSideLength = roofSideLength(houseWidth, houseHeight);
+		float bottomAngle = bottomAngle(houseHeight, roofSideLength);
 		float topAngle = topAngle(bottomAngle);
 		System.out.println("DEBUG: ");
 		System.out.println("Laenge Dach: " + roofSideLength);
@@ -109,7 +107,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		houseWidth = 300; // TODO: maximal 400!
-		houseHeight = 100; //TODO: maximale Höhe bestimmen
 		
 		//System.out.println("Bitte Zahl eingeben: ");
 		//int test = in.nextInt();
