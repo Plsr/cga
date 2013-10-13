@@ -19,8 +19,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		final float roofHeight = 100;
 		float doorHeight = 40;
 		
-		/*Draw Background (RAW) */
-		//TODO: More details
+		/*Hintergrund zeichnen */
 		up();
 		turnRight(90);
 		move(250);
@@ -35,10 +34,9 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(500);
 		
 		
-		/*Draw House (BETA)*/
-		//TODO: Windows
+		/*Haus zeichnen (BETA)*/
 		
-		//Go where House should start
+		//Zur Startposition für Haus
 		up();
 		turnRight(90);
 		move(300);
@@ -46,7 +44,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(50);
 		down();
 		
-		//Draw House
+		//Haus-Geruest
 		move(houseWidth); //breite
 		turnRight(90);
 		move(houseHeight); //hoehe
@@ -55,26 +53,26 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(90);
 		move(houseHeight); //hoehe
 		
-		//Calculate values needed for roof
+		//Dach
 		float roofSideLength = roofSideLength(houseWidth, roofHeight);
 		float bottomAngle = bottomAngle(roofHeight, roofSideLength);
 		float topAngle = topAngle(bottomAngle);
 
-		//Move to where roof should start
+		
+		
+		
+		
 		up();
 		turnRight(180);
 		move(houseHeight);
 		turnLeft(bottomAngle);
-		
-		//Draw roof
 		down();
 		move(roofSideLength);
 		turnLeft(topAngle);
 		move(roofSideLength);
 		up();
 		
-		//Door (fixed starting point) TODO: Fix
-		//TODO: Make variable
+		//Tuer (feste Breite) TODO: Stimmt nicht mehr
 		up();
 		turnRight(90);
 		move(33);
@@ -85,10 +83,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(33);
 		turnLeft(90);
 		move(doorHeight);
-		
-		
-		//Windows (fixed amount)
-		//TODO: Finish
+		//Fenster(feste Anzahl)
 		up();
 		turnLeft(90);
 		move(56);
@@ -150,9 +145,12 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 		
 		float gk = houseHeight;
+		System.out.println("DEBUG: GK: " + gk);
 		float hyp = roofSideLength;
+		System.out.println("DEBUG: HYP: " + hyp);
 		float sinBot = gk/hyp;
 		float bottomAngle =(float) ((float) 90-  (Math.asin(sinBot)) * (180/Math.PI));
+		System.out.println("DEBUG: BOTTOMANGLE: " + bottomAngle);
 		
 		
 		
@@ -167,7 +165,8 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	public float topAngle(float bottomAngle){
 		
 		float topAngle = 180 - 2*bottomAngle;
-	
+		System.out.println("DEBUG: TOPANGLE: " + topAngle);
+		
 		return topAngle;
 		
 	}

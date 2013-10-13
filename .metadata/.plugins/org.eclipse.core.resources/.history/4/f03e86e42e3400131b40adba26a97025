@@ -85,10 +85,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(33);
 		turnLeft(90);
 		move(doorHeight);
-		
-		
-		//Windows (fixed amount)
-		//TODO: Finish
+		//Fenster(feste Anzahl)
 		up();
 		turnLeft(90);
 		move(56);
@@ -150,9 +147,12 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 		
 		float gk = houseHeight;
+		System.out.println("DEBUG: GK: " + gk);
 		float hyp = roofSideLength;
+		System.out.println("DEBUG: HYP: " + hyp);
 		float sinBot = gk/hyp;
 		float bottomAngle =(float) ((float) 90-  (Math.asin(sinBot)) * (180/Math.PI));
+		System.out.println("DEBUG: BOTTOMANGLE: " + bottomAngle);
 		
 		
 		
@@ -167,7 +167,8 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	public float topAngle(float bottomAngle){
 		
 		float topAngle = 180 - 2*bottomAngle;
-	
+		System.out.println("DEBUG: TOPANGLE: " + topAngle);
+		
 		return topAngle;
 		
 	}
