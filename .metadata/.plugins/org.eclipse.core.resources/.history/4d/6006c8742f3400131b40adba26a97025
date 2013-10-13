@@ -15,10 +15,9 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 
 	@Override public void turtleCommands() {
 		
-		//Height of the roof, can be changed, should be 100.
+		
 		final float roofHeight = 100;
-		//Height of the door, should not be changed and stay at 40!
-		final float doorHeight = 40;
+		float doorHeight = 40;
 		
 		/*Draw Background (RAW) */
 		//TODO: More details
@@ -74,20 +73,12 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(roofSideLength);
 		up();
 		
-		//Draw Door (starting point is variable)
-		
-		//Calculate starting position
-		doorStartPosition = (float) ((houseWidth / 2) + 16.5);
-		
-		//Move to starting poition
+		//Door (fixed starting point) TODO: Fix
+		//TODO: Make variable
 		up();
-		turnLeft(180-bottomAngle-topAngle);
-		move(houseHeight);
-		turnLeft(90);
-		move(doorStartPosition);
-		turnLeft(90);
-		
-		//start drawing the door
+		turnRight(90);
+		move(33);
+		turnRight(90);
 		down();
 		move(doorHeight);
 		turnLeft(90);

@@ -74,20 +74,12 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(roofSideLength);
 		up();
 		
-		//Draw Door (starting point is variable)
-		
-		//Calculate starting position
-		doorStartPosition = (float) ((houseWidth / 2) + 16.5);
-		
-		//Move to starting poition
+		//Door (fixed starting point) TODO: Fix
+		//TODO: Make variable
 		up();
 		turnLeft(180-bottomAngle-topAngle);
-		move(houseHeight);
-		turnLeft(90);
-		move(doorStartPosition);
-		turnLeft(90);
-		
-		//start drawing the door
+		move(33);
+		turnRight(90);
 		down();
 		move(doorHeight);
 		turnLeft(90);

@@ -74,20 +74,16 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(roofSideLength);
 		up();
 		
-		//Draw Door (starting point is variable)
+		//Door (fixed starting point) TODO: Fix
+		//TODO: Make variable
 		
-		//Calculate starting position
 		doorStartPosition = (float) ((houseWidth / 2) + 16.5);
-		
-		//Move to starting poition
 		up();
 		turnLeft(180-bottomAngle-topAngle);
 		move(houseHeight);
 		turnLeft(90);
 		move(doorStartPosition);
 		turnLeft(90);
-		
-		//start drawing the door
 		down();
 		move(doorHeight);
 		turnLeft(90);
@@ -121,7 +117,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		houseWidth = 300; // TODO: maximal 400!
+		houseWidth = 200; // TODO: maximal 400!
 		houseHeight = 100; //TODO: maximale Höhe bestimmen (4 Stockwerke?)
 		
 		//System.out.println("Bitte Zahl eingeben: ");
