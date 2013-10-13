@@ -11,9 +11,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 		static float houseWidth;
 		static float doorStartPosition;
-		static float houseHeight; //Ein Stockwerk = 100
-		static float WindowAmount;
-		static float windowPadding; //TODO: Berechnen!
+		static float houseHeight;
 
 	@Override public void turtleCommands() {
 		
@@ -102,21 +100,13 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		//TODO: Finish
 		up();
 		turnLeft(90);
-		move(doorStartPosition);
+		move(56);
 		turnLeft(90);
 		move(55);
 		turnLeft(90);
-		
-		//Actual Windows
-		move(windowPadding);
+		move(10);
 		down();
 		move(30);
-		turnRight(90);
-		move(35);
-		turnRight(90);
-		move(30);
-		turnRight(90);
-		move (35);
 		
 		
 		
@@ -133,8 +123,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		Scanner in = new Scanner(System.in);
 		houseWidth = 300; // TODO: maximal 400!
 		houseHeight = 100; //TODO: maximale Höhe bestimmen (4 Stockwerke?)
-		windowPadding = 10;
-		int maxWindowAmount = (int) (houseWidth / 40);
 		
 		//System.out.println("Bitte Zahl eingeben: ");
 		//int test = in.nextInt();
