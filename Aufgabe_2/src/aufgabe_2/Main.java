@@ -132,9 +132,10 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		houseWidth = 300; // TODO: maximal 400!
-		houseHeight = 100; //TODO: maximale Höhe bestimmen (4 Stockwerke?)
-		windowPadding = 10;
+		houseHeight = 100; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
 		int maxWindowAmount = (int) (houseWidth / 40);
+		windowPadding = windowPadding();
+		WindowAmount = 4;
 		
 		//System.out.println("Bitte Zahl eingeben: ");
 		//int test = in.nextInt();
@@ -190,6 +191,15 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		float topAngle = 180 - 2*bottomAngle;
 	
 		return topAngle;
+		
+	}
+	
+	public static float windowPadding () {
+		
+		float spacing = houseWidth - (40 * WindowAmount);
+		float padding = spacing / (WindowAmount + 1);
+		
+		return padding;
 		
 	}
 	}
