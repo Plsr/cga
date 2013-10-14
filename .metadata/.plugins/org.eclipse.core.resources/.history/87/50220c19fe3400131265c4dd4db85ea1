@@ -136,7 +136,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		houseWidth = 300; // TODO: maximal 400!
+		houseWidth = 200; // TODO: maximal 400!
 		houseHeight = 100; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
 		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
 		System.out.println("DEBUG: MAXWINDOWAMOUNT: " + maxWindowAmount);

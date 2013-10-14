@@ -108,7 +108,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnLeft(90);
 		
 		//Actual Windows
-		for(int i = 0; i < WindowAmount; i++){
 		move(windowPadding);
 		down();
 		move(30);
@@ -118,10 +117,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		move(30);
 		turnRight(90);
 		move (35);
-		turnRight(90);
-		up();
-		move(30);
-		}
 		
 		
 		
@@ -138,11 +133,9 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		Scanner in = new Scanner(System.in);
 		houseWidth = 300; // TODO: maximal 400!
 		houseHeight = 100; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
-		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
-		System.out.println("DEBUG: MAXWINDOWAMOUNT: " + maxWindowAmount);
-		WindowAmount = maxWindowAmount;
+		int maxWindowAmount = (int) (houseWidth / 40);
 		windowPadding = windowPadding();
-		
+		WindowAmount = 4;
 		
 		//System.out.println("Bitte Zahl eingeben: ");
 		//int test = in.nextInt();
@@ -201,17 +194,11 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	
-	/**
-	 * Calculates the padding between windows.
-	 * First looks how much space is left when the windows that are wanted are drawn.
-	 * Then calculates the actual padding.
-	 * @return the padding
-	 */
 	public static float windowPadding () {
 		
-		float spacing = houseWidth - (30 * WindowAmount);
+		float spacing = houseWidth - (40 * WindowAmount);
 		float padding = spacing / (WindowAmount + 1);
+		System.out.printl("DEBUG: WINDOWPADDING: " + windowPadding);
 		
 		return padding;
 		

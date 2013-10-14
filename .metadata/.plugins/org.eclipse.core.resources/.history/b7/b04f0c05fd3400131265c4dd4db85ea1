@@ -108,7 +108,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnLeft(90);
 		
 		//Actual Windows
-		for(int i = 0; i < WindowAmount; i++){
+		for(int i = 0; i <= WindowAmount; i++){
 		move(windowPadding);
 		down();
 		move(30);
@@ -119,8 +119,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(90);
 		move (35);
 		turnRight(90);
-		up();
-		move(30);
+		move(30 + windowPadding);
 		}
 		
 		
@@ -139,7 +138,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		houseWidth = 300; // TODO: maximal 400!
 		houseHeight = 100; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
 		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
-		System.out.println("DEBUG: MAXWINDOWAMOUNT: " + maxWindowAmount);
 		WindowAmount = maxWindowAmount;
 		windowPadding = windowPadding();
 		

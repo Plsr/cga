@@ -119,8 +119,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(90);
 		move (35);
 		turnRight(90);
-		up();
-		move(30);
+		move(30 + windowPadding);
 		}
 		
 		
