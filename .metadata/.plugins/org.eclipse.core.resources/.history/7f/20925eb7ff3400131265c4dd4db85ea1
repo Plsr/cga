@@ -109,7 +109,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnLeft(90);
 		
 		//Actual Windows
-		for(int j = 1; j < houseFloors; j++){
+		for(int j = 2; j < houseFloors; j++){
 		for(int i = 0; i < WindowAmount; i++){
 		move(windowPadding);
 		down();

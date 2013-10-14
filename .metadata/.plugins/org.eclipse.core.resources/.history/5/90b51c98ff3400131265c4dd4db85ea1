@@ -109,7 +109,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnLeft(90);
 		
 		//Actual Windows
-		for(int j = 1; j < houseFloors; j++){
+		for(int j = 2; j < houseFloors; j++){
 		for(int i = 0; i < WindowAmount; i++){
 		move(windowPadding);
 		down();
@@ -123,17 +123,16 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(90);
 		up();
 		move(30);
-	
-		}
 		//Get to starting point of next floor
-				if(houseFloors > 2){
-					move(windowPadding);
-					turnRight(90);
-					move(50);
-					turnRight(90);
-					move(houseWidth);
-					turnRight(180);
-				}
+		if(houseFloors > 2){
+			move(windowPadding);
+			turnRight(90);
+			move(50);
+			turnRight(90);
+			move(houseWidth);
+			turnRight(180);
+		}
+		}
 		}
 		
 		
