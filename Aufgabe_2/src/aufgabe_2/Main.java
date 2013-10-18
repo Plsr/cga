@@ -15,6 +15,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		static float houseHeight; //Ein Stockwerk = 50
 		static float WindowAmount;
 		static float windowPadding; //TODO: Berechnen!
+		static float treeAmount;
 
 	@Override public void turtleCommands() {
 		
@@ -22,6 +23,10 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		final float roofHeight = 100;
 		//Height of the door, should not be changed and stay at 40!
 		final float doorHeight = 40;
+		//Padding of the house from the edges of the screen
+		final float housePadding = 50;
+		//length of one branch of the tree
+		float treeBranchLength = 40;
 		
 		/*Draw Background (RAW) */
 		//TODO: More details
@@ -47,7 +52,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(90);
 		move(300);
 		turnRight(90);
-		move(50);
+		move(housePadding);
 		down();
 		
 		//Draw House
@@ -137,11 +142,53 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 				
 		}
 		
-		//get to downer left corner of the house
+		//get to lower left corner of the house
 		turnLeft(90);
 		move((houseFloors * 50) + 5);
 		turnRight(90);
 		move(houseWidth);
+		
+		//Move to the left edge of the house canvas
+		move(400 - (housePadding + houseWidth));
+		
+		
+		//Treetime (hoehe = 100)
+		//TODO: Random, maybe?
+		
+		turnRight(90);
+		down();
+		
+		
+		for(int j = 0 ; j <= treeAmount; j++){ 
+			move(20);
+		for (int i = 0; i < 5; i++) {
+			
+		
+		move(20);
+		turnRight(135);
+		move(treeBranchLength);
+		turnLeft(180);
+		move(treeBranchLength);
+		turnLeft(90);
+		move(treeBranchLength);
+		turnRight(180);
+		move(treeBranchLength);
+		turnLeft(45);
+		
+		treeBranchLength -= 5;//TODO: Dont forget to reset!
+		}
+		treeBranchLength = 40;
+		move(10);
+		up();
+		turnRight(180);
+		move(130);
+		turnRight(90);
+		move (60);
+		turnRight(90);
+		down();
+		}
+		
+		
 		
 		
 		
@@ -158,12 +205,12 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		houseFloors = 3;
-		houseWidth = 300; // TODO: maximal 400!
+		houseWidth = 300; // TODO: maximal 300!
 		houseHeight = 50 * houseFloors; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
 		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
 		WindowAmount = maxWindowAmount;
 		windowPadding = windowPadding();
-		
+		treeAmount = 5; //Max 6		
 		
 		//System.out.println("Bitte Zahl eingeben: ");
 		//int test = in.nextInt();

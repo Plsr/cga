@@ -1,0 +1,268 @@
+package aufgabe_2;
+
+	import java.util.Scanner;
+
+import org.amcgala.TurtleMode;
+import org.apache.commons.math3.analysis.function.Sqrt;
+import org.jboss.netty.buffer.TruncatedChannelBuffer;
+	
+
+	public class Main extends TurtleMode{
+		
+		static float houseWidth;
+		static float doorStartPosition;
+		static float houseFloors;
+		static float houseHeight; //Ein Stockwerk = 50
+		static float WindowAmount;
+		static float windowPadding; //TODO: Berechnen!
+
+	@Override public void turtleCommands() {
+		
+		//Height of the roof, can be changed, should be 100.
+		final float roofHeight = 100;
+		//Height of the door, should not be changed and stay at 40!
+		final float doorHeight = 40;
+		//Padding of the house from the edges of the screen
+		final float housePadding = 50;
+		
+		/*Draw Background (RAW) */
+		//TODO: More details
+		up();
+		turnRight(90);
+		move(250);
+		turnLeft(90);
+		down();
+		move(50);
+		turnLeft(50);
+		move(200);
+		turnRight(100);
+		move(200);
+		turnLeft(50);
+		move(500);
+		
+		
+		/*Draw House (BETA)*/
+		//TODO: Windows
+		
+		//Go where House should start
+		up();
+		turnRight(90);
+		move(300);
+		turnRight(90);
+		move(housePadding);
+		down();
+		
+		//Draw House
+		move(houseWidth); //breite
+		turnRight(90);
+		move(houseHeight); //hoehe
+		turnRight(90);
+		move(houseWidth); //breite
+		turnRight(90);
+		move(houseHeight); //hoehe
+		
+		//Calculate values needed for roof
+		float roofSideLength = roofSideLength(houseWidth, roofHeight);
+		float bottomAngle = bottomAngle(roofHeight, roofSideLength);
+		float topAngle = topAngle(bottomAngle);
+
+		//Move to where roof should start
+		up();
+		turnRight(180);
+		move(houseHeight);
+		turnLeft(bottomAngle);
+		
+		//Draw roof
+		down();
+		move(roofSideLength);
+		turnLeft(topAngle);
+		move(roofSideLength);
+		up();
+		
+		//Draw Door (starting point is variable)
+		
+		//Calculate starting position
+		doorStartPosition = (float) ((houseWidth / 2) + 16.5);
+		
+		//Move to starting poition
+		up();
+		turnLeft(180-bottomAngle-topAngle);
+		move(houseHeight);
+		turnLeft(90);
+		move(doorStartPosition);
+		turnLeft(90);
+		
+		//start drawing the door
+		down();
+		move(doorHeight);
+		turnLeft(90);
+		move(33);
+		turnLeft(90);
+		move(doorHeight);
+		
+		
+		//Windows (fixed amount)
+		//TODO: Finish
+		up();
+		turnLeft(90);
+		move(doorStartPosition);
+		turnLeft(90);
+		move(55);
+		turnLeft(90);
+		
+		//Actual Windows
+		for(int j = 2; j <= houseFloors; j++){
+			for(int i = 0; i < WindowAmount; i++){
+					move(windowPadding);
+					down();
+					move(30);
+					turnRight(90);
+					move(35);
+					turnRight(90);
+					move(30);
+					turnRight(90);
+					move (35);
+					turnRight(90);
+					up();
+					move(30);
+	
+			}
+		
+			//Get to starting point of next floor
+			move(windowPadding);
+			turnRight(90);
+			move(50);
+			turnRight(90);
+			move(houseWidth);
+			turnRight(180);
+			
+				
+		}
+		
+		//get to lower left corner of the house
+		turnLeft(90);
+		move((houseFloors * 50) + 5);
+		turnRight(90);
+		move(houseWidth);
+		
+		//Move to the left edge of the house canvas
+		move(400 - (housePadding + houseWidth));
+		
+		
+		//Treetime (hoehe = 100)
+		
+		turnRight(90);
+		move(20);
+		for (int i = 0; i < 5; i++) {
+			
+		down();
+		move(20);
+		turnRight(135);
+		move(40);
+		turnLeft(180);
+		move(40);
+		turnLeft(90);
+		move(40);
+		turnRight(180);
+		move(40);
+		turnLeft(45);
+		}
+		
+		move(20);
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+
+	}
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		houseFloors = 3;
+		houseWidth = 300; // TODO: maximal 300!
+		houseHeight = 50 * houseFloors; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
+		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
+		WindowAmount = maxWindowAmount;
+		windowPadding = windowPadding();
+		
+		
+		//System.out.println("Bitte Zahl eingeben: ");
+		//int test = in.nextInt();
+		new Main();
+
+	}
+	
+	/**
+	 * Calculates the length of the sides of the roof.
+	 * Uses Pythagoras.
+	 * @param houseWidth width of the house
+	 * @param houseHeight height of the house
+	 * @return length of one roof side
+	 */
+	public float roofSideLength (float houseWidth, float houseHeight) {
+		
+		
+		float width = houseWidth/2;
+		float roofSideLength = (float) Math.sqrt(houseHeight*houseHeight + width*width);
+		
+		
+		return roofSideLength;
+	}
+	
+	
+	/**
+	 * Calculates the Angles at the bottom of the roof.
+	 * Uses the formula sin(a) = gk/hyp <=> asin(gk/hyp) = a
+	 * @param houseHeight height of the house
+	 * @param roofSideLength length of one side of the roof
+	 * @return the bottom angle
+	 */
+	public float bottomAngle (float houseHeight, float roofSideLength) {
+		
+		
+		float gk = houseHeight;
+		float hyp = roofSideLength;
+		float sinBot = gk/hyp;
+		float bottomAngle =(float) ((float) 90-  (Math.asin(sinBot)) * (180/Math.PI));
+		
+		
+		
+		return bottomAngle;
+	}
+	
+	/**
+	 * Calculates the angle at the top of the roof.
+	 * @param bottomAngle bottom angle
+	 * @return top angle
+	 */
+	public float topAngle(float bottomAngle){
+		
+		float topAngle = 180 - 2*bottomAngle;
+	
+		return topAngle;
+		
+	}
+	
+	
+	/**
+	 * Calculates the padding between windows.
+	 * First looks how much space is left when the windows that are wanted are drawn.
+	 * Then calculates the actual padding.
+	 * @return the padding
+	 */
+	public static float windowPadding () {
+		
+		float spacing = houseWidth - (30 * WindowAmount);
+		float padding = spacing / (WindowAmount + 1);
+		
+		return padding;
+		
+	}
+	}
+
