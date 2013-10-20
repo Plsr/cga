@@ -381,11 +381,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the trees.
-	 * Rather static, 2 for-iterations because they are necessary.
-	 */
-	
 	public void drawTrees() {
 		
 		//Get to starting position
@@ -427,10 +422,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Moves the Turtle back to the starting point.
-	 * This is the upper left corner.
-	 */
 	public void moveBack() {
 		up();
 		turnLeft(presentAngle + 90);
@@ -442,13 +433,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Keeps track of the present angle of the turtle.
-	 * Makes it possible to get it back to the starting point with small effort.
-	 * @param degree degree the turtle is turned by
-	 * @param direction direction the turtle is turned in
-	 * @return degree, to make it actually possible to turn the turtle with this function
-	 */
 	public float setAngle(float degree, String direction) {
 		
 		if(direction == "right"){

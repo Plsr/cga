@@ -442,13 +442,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Keeps track of the present angle of the turtle.
-	 * Makes it possible to get it back to the starting point with small effort.
-	 * @param degree degree the turtle is turned by
-	 * @param direction direction the turtle is turned in
-	 * @return degree, to make it actually possible to turn the turtle with this function
-	 */
 	public float setAngle(float degree, String direction) {
 		
 		if(direction == "right"){

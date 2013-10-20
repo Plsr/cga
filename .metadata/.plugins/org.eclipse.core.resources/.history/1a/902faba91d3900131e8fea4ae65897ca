@@ -53,55 +53,26 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		//Height of the roof, can be changed, should be 100.
 		final float roofHeight = 100;
 		
-		//Shortcut when calling setAngle();
-		final String right = "right";
-		final String left = "left";
-		
-		//Height of ONE floor
+		static float houseWidth;
+		static float doorStartPosition;
+		static float houseFloors;
 		static float floorHeight = 50;
-		
-		
-		/*VARIABLES THAT ARE CHANGED BY THE CODE*/
-		
-		//Angle in which the Turtle looks right now
-		//0 = 90 DEG to the right
-		static float presentAngle = 0;
-		
-		//Position of the Turtle at the end of a function
-		//Needed for the moveBack()-function
+		static float houseHeight; //Ein Stockwerk = 50
+		static float WindowAmount;
+		static float windowPadding; //TODO: Berechnen!
+		static float treeAmount;
 		static float lastPositionX = 0;
 		static float lastPositionY = 0;
-		
-		//Changes with windowAmount and houseWidth
-		static float windowPadding; 
-		
-		//Calculated by hosueFloors * floorHeight
-		static float houseHeight;
-		
-		//Changes with houseWidth
-		static float doorStartPosition;
-		
-		
-		/* VARIABLES THAT ARE CHANGED BY THE USER */
-		
-		
-		static float houseWidth;
-		static float houseFloors;
-		static float WindowAmount;
-		static float treeAmount;
-		
-		
-		
+		static float presentAngle = 0; //0 = looking to the right
+		final String right = "right";
+		final String left = "left";
 		
 		
 		
 		
 				
 		
-/**
- * Core of the Program, draws all the fancy stuff.
- * Names of the functions should be pretty self-explaining. Smart.
- */
+
 	@Override public void turtleCommands() {
 		
 		
@@ -130,9 +101,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	}
 
 	
-/**
- * Handles the user input. Has not been finished as well.
- */
+
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		houseFloors = 3;
@@ -216,11 +185,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the Background.
-	 * Basically just a mountain. The look is not lack of details, it
-	 * is flat design.
-	 */
 	public void drawBackground(){
 		up();
 		turnRight(setAngle(90, right));
@@ -242,10 +206,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the house.
-	 * This is just the basic grid, not more than a rectangle.
-	 */
 	public void drawHouse() {
 		
 		
@@ -269,10 +229,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		lastPositionY = HEIGHT - housePadding;
 	}
 	
-	/**
-	 * Draws the roof.
-	 * Some calculating for the angles, some kind of magic.
-	 */
 	public void drawRoof() {
 		//Calculate values needed for roof
 		float roofSideLength = roofSideLength(houseWidth, roofHeight);
@@ -287,7 +243,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 				
 		//Draw roof
 		down();
-		//The "90 -" is necessary. I don't know why, but it works.
 		turnRight(setAngle(90 - bottomAngle, right));
 		move(roofSideLength);
 		turnLeft(setAngle(topAngle, left));
@@ -298,11 +253,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		lastPositionY = HEIGHT - housePadding - houseHeight;
 	}
 	
-	/**
-	 * Draws the door.
-	 * Some calculation for the starting position.
-	 * Rest is basic stuff.
-	 */
 	public void drawDoor() {
 		
 		//Get to starting position
@@ -312,7 +262,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(setAngle(90, right));
 		
 		//Calculate starting position
-		//16.5 = half of the width of the door.
 		doorStartPosition = (float) ((houseWidth / 2) - 16.5);
 				
 		//Move to starting poition
@@ -333,11 +282,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the windows.
-	 * 2 for.iterations to get to all the floors.
-	 * Since it's Windows, let's hope it doesn't crash.
-	 */
 	public void drawWindows() {
 		//Get to starting position
 		move(WIDTH - housePadding);
@@ -381,11 +325,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the trees.
-	 * Rather static, 2 for-iterations because they are necessary.
-	 */
-	
 	public void drawTrees() {
 		
 		//Get to starting position
@@ -427,10 +366,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Moves the Turtle back to the starting point.
-	 * This is the upper left corner.
-	 */
 	public void moveBack() {
 		up();
 		turnLeft(presentAngle + 90);
@@ -442,13 +377,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Keeps track of the present angle of the turtle.
-	 * Makes it possible to get it back to the starting point with small effort.
-	 * @param degree degree the turtle is turned by
-	 * @param direction direction the turtle is turned in
-	 * @return degree, to make it actually possible to turn the turtle with this function
-	 */
 	public float setAngle(float degree, String direction) {
 		
 		if(direction == "right"){

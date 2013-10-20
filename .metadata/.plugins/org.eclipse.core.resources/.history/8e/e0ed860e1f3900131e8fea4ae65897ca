@@ -244,7 +244,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 	
 	/**
 	 * Draws the house.
-	 * This is just the basic grid, not more than a rectangle.
+	 * This is just than basic grid, not more the an rectangle.
 	 */
 	public void drawHouse() {
 		
@@ -269,10 +269,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		lastPositionY = HEIGHT - housePadding;
 	}
 	
-	/**
-	 * Draws the roof.
-	 * Some calculating for the angles, some kind of magic.
-	 */
 	public void drawRoof() {
 		//Calculate values needed for roof
 		float roofSideLength = roofSideLength(houseWidth, roofHeight);
@@ -287,7 +283,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 				
 		//Draw roof
 		down();
-		//The "90 -" is necessary. I don't know why, but it works.
 		turnRight(setAngle(90 - bottomAngle, right));
 		move(roofSideLength);
 		turnLeft(setAngle(topAngle, left));
@@ -298,11 +293,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		lastPositionY = HEIGHT - housePadding - houseHeight;
 	}
 	
-	/**
-	 * Draws the door.
-	 * Some calculation for the starting position.
-	 * Rest is basic stuff.
-	 */
 	public void drawDoor() {
 		
 		//Get to starting position
@@ -312,7 +302,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		turnRight(setAngle(90, right));
 		
 		//Calculate starting position
-		//16.5 = half of the width of the door.
 		doorStartPosition = (float) ((houseWidth / 2) - 16.5);
 				
 		//Move to starting poition
@@ -333,11 +322,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the windows.
-	 * 2 for.iterations to get to all the floors.
-	 * Since it's Windows, let's hope it doesn't crash.
-	 */
 	public void drawWindows() {
 		//Get to starting position
 		move(WIDTH - housePadding);
@@ -381,11 +365,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Draws the trees.
-	 * Rather static, 2 for-iterations because they are necessary.
-	 */
-	
 	public void drawTrees() {
 		
 		//Get to starting position
@@ -427,10 +406,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Moves the Turtle back to the starting point.
-	 * This is the upper left corner.
-	 */
 	public void moveBack() {
 		up();
 		turnLeft(presentAngle + 90);
@@ -442,13 +417,6 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 	}
 	
-	/**
-	 * Keeps track of the present angle of the turtle.
-	 * Makes it possible to get it back to the starting point with small effort.
-	 * @param degree degree the turtle is turned by
-	 * @param direction direction the turtle is turned in
-	 * @return degree, to make it actually possible to turn the turtle with this function
-	 */
 	public float setAngle(float degree, String direction) {
 		
 		if(direction == "right"){
