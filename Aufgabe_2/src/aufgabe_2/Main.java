@@ -28,6 +28,8 @@ package aufgabe_2;
 import org.amcgala.TurtleMode;
 import org.apache.commons.math3.analysis.function.Sqrt;
 import org.jboss.netty.buffer.TruncatedChannelBuffer;
+
+import scala.inline;
 	
 
 	public class Main extends TurtleMode{
@@ -59,6 +61,8 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		
 		//Height of ONE floor
 		static float floorHeight = 50;
+		
+		public static Scanner in = new Scanner(System.in);
 		
 		
 		/*VARIABLES THAT ARE CHANGED BY THE CODE*/
@@ -134,19 +138,156 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
  * Handles the user input. Has not been finished as well.
  */
 	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		houseFloors = 3;
-		houseWidth = 300; // TODO: maximal 300!
-		houseHeight = 50 * houseFloors; //TODO: maximale Hoehe bestimmen (4 Stockwerke?)
-		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
-		WindowAmount = maxWindowAmount;
-		windowPadding = windowPadding();
-		treeAmount = 5; //Max 6		
 		
-		//System.out.println("Bitte Zahl eingeben: ");
-		//int test = in.nextInt();
+		System.out.println("Oh hello there. My name is Alfred. I will help you to build your new home.");
+		System.out.println("What's you name?");
+		String name = in.next();
+		System.out.println(name + "? That'll look great on the mailbox.");
+		System.out.println("Okay " + name + ", let's begin.");
+		
+		setHouseFloors();
+		setHouseWidth();
+		setWindows();
+		setTrees();
+		
+		System.out.println("I guess we got everything. I'll start the house-compensator with full power now. Step back please!");
+		System.out.println("Oh damn, we forgot the mailbox. I cannot stop it now.");
+		
 		new Main();
 
+	}
+	
+	//TODO: DOC!
+	public static void setHouseFloors() {
+		int i = 0;
+		while(i != 1){
+		System.out.println("How many floors do you want the house to have?");
+		System.out.println("(Max 8)");
+		int temp = in.nextInt();
+		
+		if(temp < 1){
+			System.out.println("It should have at least one floor");
+		}
+		
+		else if(temp > 8){
+			System.out.println("There is a maximum of 8 floors, cowboy!");
+		}
+		
+		else{
+			if(temp < 3){
+				System.out.println("You like it down-to-earth, don't you?");
+			}
+			if(temp <= 5){
+				System.out.println("Thats a very average height.");
+			}
+			if(temp > 5){
+				System.out.println("Sky's the limit!");
+			}
+			houseFloors = temp;
+			houseHeight = 50 * houseFloors;
+			i = 1;
+		}
+		
+		}
+	}
+	
+	//TODO: DOC
+	public static void setHouseWidth() {
+		int i = 0;
+		System.out.println("Okay, I got that. Lets go for the width!");
+		
+		while (i != 1) {
+			System.out.println("How wide should your house be?");
+			System.out.println("(Max 300)");
+			int temp = in.nextInt();
+			
+			
+			if(temp < 1){
+				System.out.println("C'mon, give it some space.");
+			}
+			
+			else if(temp > 300){
+				System.out.println("There is not enough space for this here.");
+			}
+			
+			else{
+				if(temp > 200){
+					System.out.println("Thats a big boy!");
+				}
+				else{
+					System.out.println("Okay, I got this.");
+				}
+				houseWidth = temp;
+				i = 1;
+			}
+		}
+		
+	}
+	
+	//TODO: DOC
+	public static void setWindows() {
+		int i = 0;
+		System.out.println("Nice, lets give the whole thing some lights.");
+		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
+		
+		while (i != 1) {
+			System.out.println("How many windows should any floor have?");
+			System.out.println("(Max " + maxWindowAmount + ")");
+			int temp = in.nextInt();
+			
+			
+			if(temp < 0){
+				System.out.println("How should I buld negative Windows?");
+			}
+			
+			else if(temp > maxWindowAmount){
+				System.out.println("There is not enough space for this many windows.");
+			}
+			
+			else{
+				if(temp == 0){
+					System.out.println("You're not a friend of the sun, are you?");
+				}
+				else{
+					System.out.println("This is going to be nice and bright!");
+				}
+				WindowAmount = temp;
+				windowPadding = windowPadding();
+				i = 1;
+			}
+		}
+	}
+	
+	//TODO: DOC
+	public static void setTrees() {
+		int i = 0;
+		System.out.println("Okay, I feel like we could need some nature around.");
+		
+		while (i != 1) {
+			System.out.println("How many trees should be standing beside your house?");
+			System.out.println("(Max 7)");
+			int temp = in.nextInt();
+			
+			
+			if(temp < 0){
+				System.out.println("Sience is not far enough to build negative trees.");
+			}
+			
+			else if(temp > 7){
+				System.out.println("I know Oxygen is great and stuff, but we do not have enough space.");
+			}
+			
+			else{
+				if(temp == 0){
+					System.out.println("Not a fan of the woods, huh?");
+				}
+				else{
+					System.out.println("Oh, I can already breathe the fresh air.");
+				}
+				treeAmount = temp;
+				i = 1;
+			}
+		}
 	}
 	
 	/**
@@ -396,7 +537,7 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		down();
 		
 		
-		for(int j = 0 ; j <= treeAmount; j++){ 
+		for(int j = 0 ; j < treeAmount; j++){ 
 			move(20);
 			for (int i = 0; i < 5; i++) {
 					move(20);
@@ -410,10 +551,10 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 					move(treeBranchLength);
 					turnLeft(45);
 		
-					treeBranchLength -= 5;//TODO: Dont forget to reset!
+					treeBranchLength -= 5;
 			}
 		
-			treeBranchLength = 40;
+			treeBranchLength = 40;//Reset
 			move(10);
 			up();
 			turnRight(180);

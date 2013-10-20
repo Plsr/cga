@@ -1,0 +1,513 @@
+/****************************************************************************************
+ * This class draws a house and some trees in a mountain landscape.						*
+ * =====================================================================================*
+ * Most of the things drawn are variable, such as: Number of floors of the house,		*
+ * width of the house, number of windows on every floor and the number of trees besides *
+ * the house. Whatsoever, some values are fixed. Read the principals for more infor-    *
+ * mation.																				*
+ * =====================================================================================*
+ * THE PRINCIPLES																		*
+ * -------------------------------------------------------------------------------------*
+ * The whole scene has a width of 800. First of all, please note that the house and the *
+ * trees have their on canvas, both measured with a width of 400. This may sound unflex-*
+ * ible as hell and it is, but thats the way I want it to be.							*
+ * The user has a limited choice of house height and width,number of windows and number *
+ * of trees, so that every one of them stays in their canvas.							*
+ * The User can just choose a number of windows per floor, I want it to be symmetric.	*
+ * You see, the User has some limitations in favour for a good look. I own a Mac.		*
+ * =====================================================================================*
+ * @author Christian Poplawski															*
+ * @version 0.9																			*
+ ****************************************************************************************/
+
+
+package aufgabe_2;
+
+	import java.util.Scanner;
+
+import org.amcgala.TurtleMode;
+import org.apache.commons.math3.analysis.function.Sqrt;
+import org.jboss.netty.buffer.TruncatedChannelBuffer;
+
+import scala.inline;
+	
+
+	public class Main extends TurtleMode{
+		
+		/* HUSSA! Thats a whole lot of variables over here.
+		* Yes, but don't be afraid, most of them do not change during
+		* a run of the Program, they're just here for more easy reading.
+		* You see, those variables are your friends.
+		*/
+		
+		
+		/* VARIABLES THAT DO NOT CHANGE (and should not be changed) */
+		
+		//length of one branch of the tree
+		static float treeBranchLength = 40;
+		
+		//Height of the door, should not be changed and stay at 40!
+		final float doorHeight = 40;
+		
+		//Padding of the house from the edges of the screen
+		final float housePadding = 50;
+		
+		//Height of the roof, can be changed, should be 100.
+		final float roofHeight = 100;
+		
+		//Shortcut when calling setAngle();
+		final String right = "right";
+		final String left = "left";
+		
+		//Height of ONE floor
+		static float floorHeight = 50;
+		
+		public static Scanner in = new Scanner(System.in);
+		
+		
+		/*VARIABLES THAT ARE CHANGED BY THE CODE*/
+		
+		//Angle in which the Turtle looks right now
+		//0 = 90 DEG to the right
+		static float presentAngle = 0;
+		
+		//Position of the Turtle at the end of a function
+		//Needed for the moveBack()-function
+		static float lastPositionX = 0;
+		static float lastPositionY = 0;
+		
+		//Changes with windowAmount and houseWidth
+		static float windowPadding; 
+		
+		//Calculated by hosueFloors * floorHeight
+		static float houseHeight;
+		
+		//Changes with houseWidth
+		static float doorStartPosition;
+		
+		
+		/* VARIABLES THAT ARE CHANGED BY THE USER */
+		
+		
+		static float houseWidth;
+		static float houseFloors;
+		static float WindowAmount;
+		static float treeAmount;
+		
+		
+		
+		
+		
+		
+		
+				
+		
+/**
+ * Core of the Program, draws all the fancy stuff.
+ * Names of the functions should be pretty self-explaining. Smart.
+ */
+	@Override public void turtleCommands() {
+		
+		
+		drawBackground();
+		
+		moveBack();
+		
+		drawHouse();
+		
+		moveBack();
+		
+		drawRoof();
+		
+		moveBack();
+		
+		drawDoor();
+		
+		moveBack();
+		
+		drawWindows();
+		
+		moveBack();
+		
+		drawTrees();
+
+	}
+
+	
+/**
+ * Handles the user input. Has not been finished as well.
+ */
+	public static void main(String[] args) {
+		
+		setHouseFloors(); 
+		houseWidth = 300; // TODO: maximal 300!
+		int maxWindowAmount = (int) (houseWidth / (30 + 10)); //+10 minimum padding!
+		WindowAmount = maxWindowAmount;
+		windowPadding = windowPadding();
+		treeAmount = 5; //Max 6		
+		
+		//System.out.println("Bitte Zahl eingeben: ");
+		//int test = in.nextInt();
+		new Main();
+
+	}
+	
+	public static void setHouseFloors() {
+		int i = 0;
+		while(i != 1){
+		System.out.println("How many floors do you want the house to have?");
+		System.out.println("(Max 8)");
+		int temp = in.nextInt();
+		
+		if(temp < 1){
+			System.out.println("It should have at least one floor");
+		}
+		
+		else if(temp > 8){
+			System.out.println("There is a maximum of 8 floors, cowboy!");
+		}
+		
+		else{
+			if(temp < 2){
+				System.out.println("You like it down-to-earth, don't you?");
+			}
+			if(temp < 5){
+				System.out.println("Thats a very average height.");
+			}
+			if(temp > 5){
+				System.out.println("Sky's the limit!");
+			}
+			houseFloors = temp;
+			houseHeight = 50 * houseFloors;
+			i = 1;
+		}
+		
+		}
+	}
+	
+	/**
+	 * Calculates the length of the sides of the roof.
+	 * Uses Pythagoras.
+	 * @param houseWidth width of the house
+	 * @param houseHeight height of the house
+	 * @return length of one roof side
+	 */
+	public float roofSideLength (float houseWidth, float houseHeight) {
+		
+		
+		float width = houseWidth/2;
+		float roofSideLength = (float) Math.sqrt(houseHeight*houseHeight + width*width);
+		
+		
+		return roofSideLength;
+	}
+	
+	
+	/**
+	 * Calculates the Angles at the bottom of the roof.
+	 * Uses the formula sin(a) = gk/hyp <=> asin(gk/hyp) = a
+	 * @param houseHeight height of the house
+	 * @param roofSideLength length of one side of the roof
+	 * @return the bottom angle
+	 */
+	public float bottomAngle (float houseHeight, float roofSideLength) {
+		
+		
+		float gk = houseHeight;
+		float hyp = roofSideLength;
+		float sinBot = gk/hyp;
+		float bottomAngle =(float) ((float) 90-  (Math.asin(sinBot)) * (180/Math.PI));
+		
+		
+		
+		return bottomAngle;
+	}
+	
+	/**
+	 * Calculates the angle at the top of the roof.
+	 * @param bottomAngle bottom angle
+	 * @return top angle
+	 */
+	public float topAngle(float bottomAngle){
+		
+		float topAngle = 180 - 2*bottomAngle;
+	
+		return topAngle;
+		
+	}
+	
+	
+	/**
+	 * Calculates the padding between windows.
+	 * First looks how much space is left when the windows that are wanted are drawn.
+	 * Then calculates the actual padding.
+	 * @return the padding
+	 */
+	public static float windowPadding () {
+		
+		float spacing = houseWidth - (30 * WindowAmount);
+		float padding = spacing / (WindowAmount + 1);
+		
+		return padding;
+		
+	}
+	
+	/**
+	 * Draws the Background.
+	 * Basically just a mountain. The look is not lack of details, it
+	 * is flat design.
+	 */
+	public void drawBackground(){
+		up();
+		turnRight(setAngle(90, right));
+		move(250);
+		turnLeft(setAngle(90, left));
+		down();
+		move(50);
+		turnLeft(setAngle(50, left));
+		move(200);
+		turnRight(setAngle(100, right));
+		move(200);
+		//length of mountain = 257.12
+		turnLeft(setAngle(50, left));
+		move(492);
+		
+		lastPositionX = WIDTH;
+		lastPositionY = 250;
+		
+		
+	}
+	
+	/**
+	 * Draws the house.
+	 * This is just the basic grid, not more than a rectangle.
+	 */
+	public void drawHouse() {
+		
+		
+		//Get to correct starting point
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(90, right));
+		
+		//Draw House
+		down();
+		move(houseWidth); //breite
+		turnRight(setAngle(90, right));
+		move(houseHeight); //hoehe
+		turnRight(setAngle(90, right));
+		move(houseWidth); //breite
+		turnRight(setAngle(90, right));
+		move(houseHeight); //hoehe
+		
+		lastPositionX = WIDTH - housePadding;
+		lastPositionY = HEIGHT - housePadding;
+	}
+	
+	/**
+	 * Draws the roof.
+	 * Some calculating for the angles, some kind of magic.
+	 */
+	public void drawRoof() {
+		//Calculate values needed for roof
+		float roofSideLength = roofSideLength(houseWidth, roofHeight);
+		float bottomAngle = bottomAngle(roofHeight, roofSideLength);
+		float topAngle = topAngle(bottomAngle);
+
+		//Get to correct starting point
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding - houseHeight);
+		turnRight(setAngle(90, right));
+				
+		//Draw roof
+		down();
+		//The "90 -" is necessary. I don't know why, but it works.
+		turnRight(setAngle(90 - bottomAngle, right));
+		move(roofSideLength);
+		turnLeft(setAngle(topAngle, left));
+		move(roofSideLength);
+		up();
+		
+		lastPositionX = WIDTH - housePadding - houseWidth;
+		lastPositionY = HEIGHT - housePadding - houseHeight;
+	}
+	
+	/**
+	 * Draws the door.
+	 * Some calculation for the starting position.
+	 * Rest is basic stuff.
+	 */
+	public void drawDoor() {
+		
+		//Get to starting position
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(90, right));
+		
+		//Calculate starting position
+		//16.5 = half of the width of the door.
+		doorStartPosition = (float) ((houseWidth / 2) - 16.5);
+				
+		//Move to starting poition
+		move(doorStartPosition);
+		turnRight(setAngle(90, right));
+				
+		//start drawing the door
+		down();
+		move(doorHeight);
+		turnLeft(setAngle(90, left));
+		move(33);
+		turnLeft(setAngle(90, left));
+		move(doorHeight);
+		
+		lastPositionX = WIDTH - housePadding - doorStartPosition - 33;
+		lastPositionY = HEIGHT - housePadding;
+		
+		
+	}
+	
+	/**
+	 * Draws the windows.
+	 * 2 for.iterations to get to all the floors.
+	 * Since it's Windows, let's hope it doesn't crash.
+	 */
+	public void drawWindows() {
+		//Get to starting position
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(180, right));
+		move(floorHeight + 5);
+		turnLeft(setAngle(90, left));
+		
+		//Actual Windows
+		for(int j = 2; j <= houseFloors; j++){
+			for(int i = 0; i < WindowAmount; i++){
+					move(windowPadding);
+					down();
+					move(30);
+					turnRight(setAngle(90, right));
+					move(35);
+					turnRight(setAngle(90, right));
+					move(30);
+					turnRight(setAngle(90, right));
+					move (35);
+					turnRight(setAngle(90, right));
+					up();
+					move(30);
+	
+			}
+		
+			//Get to starting point of next floor
+			move(windowPadding);
+			turnRight(setAngle(90, right));
+			move(50);
+			turnRight(setAngle(90, right));
+			move(houseWidth);
+			turnRight(setAngle(180, right));
+			
+				
+		}
+		
+		lastPositionX = WIDTH - housePadding;
+		lastPositionY = HEIGHT - houseHeight - 50;
+		
+	}
+	
+	/**
+	 * Draws the trees.
+	 * Rather static, 2 for-iterations because they are necessary.
+	 */
+	
+	public void drawTrees() {
+		
+		//Get to starting position
+		move(WIDTH / 2);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(180, right));
+		down();
+		
+		
+		for(int j = 0 ; j <= treeAmount; j++){ 
+			move(20);
+			for (int i = 0; i < 5; i++) {
+					move(20);
+					turnRight(135);
+					move(treeBranchLength);
+					turnLeft(180);
+					move(treeBranchLength);
+					turnLeft(90);
+					move(treeBranchLength);
+					turnRight(180);
+					move(treeBranchLength);
+					turnLeft(45);
+		
+					treeBranchLength -= 5;//TODO: Dont forget to reset!
+			}
+		
+			treeBranchLength = 40;
+			move(10);
+			up();
+			turnRight(180);
+			move(130);
+			turnRight(90);
+			move (60);
+			turnRight(90);
+			down();
+		}
+		
+		
+	}
+	
+	/**
+	 * Moves the Turtle back to the starting point.
+	 * This is the upper left corner.
+	 */
+	public void moveBack() {
+		up();
+		turnLeft(presentAngle + 90);
+		move(lastPositionY);
+		turnLeft(90);
+		move(lastPositionX);
+		turnRight(180);
+		presentAngle = 0;
+		
+	}
+	
+	/**
+	 * Keeps track of the present angle of the turtle.
+	 * Makes it possible to get it back to the starting point with small effort.
+	 * @param degree degree the turtle is turned by
+	 * @param direction direction the turtle is turned in
+	 * @return degree, to make it actually possible to turn the turtle with this function
+	 */
+	public float setAngle(float degree, String direction) {
+		
+		if(direction == "right"){
+			presentAngle += degree;
+			if(presentAngle > 360) {
+				presentAngle = presentAngle -360;
+			}
+		}
+		
+		else if(direction == "left"){
+			presentAngle -= degree;
+			if(presentAngle < 0) {
+				presentAngle = 360 + presentAngle;
+			}
+		}
+		
+		else{
+			throw new IllegalArgumentException("Direction not valid");
+		}
+		
+		
+		return degree;
+		
+	}
+}
+
