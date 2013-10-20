@@ -12,195 +12,59 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		static float houseWidth;
 		static float doorStartPosition;
 		static float houseFloors;
+		static float floorHeight = 50;
 		static float houseHeight; //Ein Stockwerk = 50
 		static float WindowAmount;
 		static float windowPadding; //TODO: Berechnen!
 		static float treeAmount;
+		static float lastPositionX = 0;
+		static float lastPositionY = 0;
+		static float presentAngle = 0; //0 = looking to the right
+		final String right = "right";
+		final String left = "left";
+		//Height of the roof, can be changed, should be 100.
+		final float roofHeight = 100;
+		//Padding of the house from the edges of the screen
+		final float housePadding = 50;
+		//Height of the door, should not be changed and stay at 40!
+		final float doorHeight = 40;
+		//length of one branch of the tree
+		static float treeBranchLength = 40;
+				
+		
 
 	@Override public void turtleCommands() {
 		
-		//Height of the roof, can be changed, should be 100.
-		final float roofHeight = 100;
-		//Height of the door, should not be changed and stay at 40!
-		final float doorHeight = 40;
-		//Padding of the house from the edges of the screen
-		final float housePadding = 50;
-		//length of one branch of the tree
-		float treeBranchLength = 40;
-		
-		/*Draw Background (RAW) */
-		//TODO: More details
-		up();
-		turnRight(90);
-		move(250);
-		turnLeft(90);
-		down();
-		move(50);
-		turnLeft(50);
-		move(200);
-		turnRight(100);
-		move(200);
-		turnLeft(50);
-		move(500);
-		
-		
-		/*Draw House (BETA)*/
-		//TODO: Windows
-		
-		//Go where House should start
-		up();
-		turnRight(90);
-		move(300);
-		turnRight(90);
-		move(housePadding);
-		down();
-		
-		//Draw House
-		move(houseWidth); //breite
-		turnRight(90);
-		move(houseHeight); //hoehe
-		turnRight(90);
-		move(houseWidth); //breite
-		turnRight(90);
-		move(houseHeight); //hoehe
-		
-		//Calculate values needed for roof
-		float roofSideLength = roofSideLength(houseWidth, roofHeight);
-		float bottomAngle = bottomAngle(roofHeight, roofSideLength);
-		float topAngle = topAngle(bottomAngle);
-
-		//Move to where roof should start
-		up();
-		turnRight(180);
-		move(houseHeight);
-		turnLeft(bottomAngle);
-		
-		//Draw roof
-		down();
-		move(roofSideLength);
-		turnLeft(topAngle);
-		move(roofSideLength);
-		up();
-		
-		//Draw Door (starting point is variable)
-		
-		//Calculate starting position
-		doorStartPosition = (float) ((houseWidth / 2) + 16.5);
-		
-		//Move to starting poition
-		up();
-		turnLeft(180-bottomAngle-topAngle);
-		move(houseHeight);
-		turnLeft(90);
-		move(doorStartPosition);
-		turnLeft(90);
-		
-		//start drawing the door
-		down();
-		move(doorHeight);
-		turnLeft(90);
-		move(33);
-		turnLeft(90);
-		move(doorHeight);
-		
-		
-		//Windows (fixed amount)
-		//TODO: Finish
-		up();
-		turnLeft(90);
-		move(doorStartPosition);
-		turnLeft(90);
-		move(55);
-		turnLeft(90);
-		
-		//Actual Windows
-		for(int j = 2; j <= houseFloors; j++){
-			for(int i = 0; i < WindowAmount; i++){
-					move(windowPadding);
-					down();
-					move(30);
-					turnRight(90);
-					move(35);
-					turnRight(90);
-					move(30);
-					turnRight(90);
-					move (35);
-					turnRight(90);
-					up();
-					move(30);
-	
-			}
-		
-			//Get to starting point of next floor
-			move(windowPadding);
-			turnRight(90);
-			move(50);
-			turnRight(90);
-			move(houseWidth);
-			turnRight(180);
-			
-				
-		}
-		
-		//get to lower left corner of the house
-		turnLeft(90);
-		move((houseFloors * 50) + 5);
-		turnRight(90);
-		move(houseWidth);
-		
-		//Move to the left edge of the house canvas
-		move(400 - (housePadding + houseWidth));
-		
-		
-		//Treetime (hoehe = 100)
-		//TODO: Random, maybe?
-		
-		turnRight(90);
-		down();
-		
-		
-		for(int j = 0 ; j <= treeAmount; j++){ 
-			move(20);
-		for (int i = 0; i < 5; i++) {
-			
-		
-		move(20);
-		turnRight(135);
-		move(treeBranchLength);
-		turnLeft(180);
-		move(treeBranchLength);
-		turnLeft(90);
-		move(treeBranchLength);
-		turnRight(180);
-		move(treeBranchLength);
-		turnLeft(45);
-		
-		treeBranchLength -= 5;//TODO: Dont forget to reset!
-		}
-		treeBranchLength = 40;
-		move(10);
-		up();
-		turnRight(180);
-		move(130);
-		turnRight(90);
-		move (60);
-		turnRight(90);
-		down();
-		}
 		
 		
 		
 		
 		
+		drawBackground();
 		
+		moveBack();
 		
-
+		drawHouse();
 		
-
+		moveBack();
 		
+		drawRoof();
 		
+		moveBack();
+		
+		drawDoor();
+		
+		moveBack();
+		
+		drawWindows();
+		
+		moveBack();
+		
+		drawTrees();
 
 	}
+
+	
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -284,5 +148,222 @@ import org.jboss.netty.buffer.TruncatedChannelBuffer;
 		return padding;
 		
 	}
+	
+	public void drawBackground(){
+		up();
+		turnRight(setAngle(90, right));
+		move(250);
+		turnLeft(setAngle(90, left));
+		down();
+		move(50);
+		turnLeft(setAngle(50, left));
+		move(200);
+		turnRight(setAngle(100, right));
+		move(200);
+		//length of mountain = 257.12
+		turnLeft(setAngle(50, left));
+		move(492);
+		
+		lastPositionX = WIDTH;
+		lastPositionY = 250;
+		
+		
 	}
+	
+	public void drawHouse() {
+		
+		
+		//Get to correct starting point
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(90, right));
+		
+		//Draw House
+		down();
+		move(houseWidth); //breite
+		turnRight(setAngle(90, right));
+		move(houseHeight); //hoehe
+		turnRight(setAngle(90, right));
+		move(houseWidth); //breite
+		turnRight(setAngle(90, right));
+		move(houseHeight); //hoehe
+		
+		lastPositionX = WIDTH - housePadding;
+		lastPositionY = HEIGHT - housePadding;
+	}
+	
+	public void drawRoof() {
+		//Calculate values needed for roof
+		float roofSideLength = roofSideLength(houseWidth, roofHeight);
+		float bottomAngle = bottomAngle(roofHeight, roofSideLength);
+		float topAngle = topAngle(bottomAngle);
+
+		//Get to correct starting point
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding - houseHeight);
+		turnRight(setAngle(90, right));
+				
+		//Draw roof
+		down();
+		turnRight(setAngle(90 - bottomAngle, right));
+		move(roofSideLength);
+		turnLeft(setAngle(topAngle, left));
+		move(roofSideLength);
+		up();
+		
+		lastPositionX = WIDTH - housePadding - houseWidth;
+		lastPositionY = HEIGHT - housePadding - houseHeight;
+	}
+	
+	public void drawDoor() {
+		
+		//Get to starting position
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(90, right));
+		
+		//Calculate starting position
+		doorStartPosition = (float) ((houseWidth / 2) - 16.5);
+				
+		//Move to starting poition
+		move(doorStartPosition);
+		turnRight(setAngle(90, right));
+				
+		//start drawing the door
+		down();
+		move(doorHeight);
+		turnLeft(setAngle(90, left));
+		move(33);
+		turnLeft(setAngle(90, left));
+		move(doorHeight);
+		
+		lastPositionX = WIDTH - housePadding - doorStartPosition - 33;
+		lastPositionY = HEIGHT - housePadding;
+		
+		
+	}
+	
+	public void drawWindows() {
+		//Get to starting position
+		move(WIDTH - housePadding);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(180, right));
+		move(floorHeight + 5);
+		turnLeft(setAngle(90, left));
+		
+		//Actual Windows
+		for(int j = 2; j <= houseFloors; j++){
+			for(int i = 0; i < WindowAmount; i++){
+					move(windowPadding);
+					down();
+					move(30);
+					turnRight(setAngle(90, right));
+					move(35);
+					turnRight(setAngle(90, right));
+					move(30);
+					turnRight(setAngle(90, right));
+					move (35);
+					turnRight(setAngle(90, right));
+					up();
+					move(30);
+	
+			}
+		
+			//Get to starting point of next floor
+			move(windowPadding);
+			turnRight(setAngle(90, right));
+			move(50);
+			turnRight(setAngle(90, right));
+			move(houseWidth);
+			turnRight(setAngle(180, right));
+			
+				
+		}
+		
+		lastPositionX = WIDTH - housePadding;
+		lastPositionY = HEIGHT - houseHeight - 50;
+		
+	}
+	
+	public void drawTrees() {
+		
+		//Get to starting position
+		move(WIDTH / 2);
+		turnRight(setAngle(90, right));
+		move(HEIGHT - housePadding);
+		turnRight(setAngle(180, right));
+		down();
+		
+		
+		for(int j = 0 ; j <= treeAmount; j++){ 
+			move(20);
+			for (int i = 0; i < 5; i++) {
+					move(20);
+					turnRight(135);
+					move(treeBranchLength);
+					turnLeft(180);
+					move(treeBranchLength);
+					turnLeft(90);
+					move(treeBranchLength);
+					turnRight(180);
+					move(treeBranchLength);
+					turnLeft(45);
+		
+					treeBranchLength -= 5;//TODO: Dont forget to reset!
+			}
+		
+			treeBranchLength = 40;
+			move(10);
+			up();
+			turnRight(180);
+			move(130);
+			turnRight(90);
+			move (60);
+			turnRight(90);
+			down();
+		}
+		
+		
+	}
+	
+	public void moveBack() {
+		up();
+		turnLeft(presentAngle + 90);
+		move(lastPositionY);
+		turnLeft(90);
+		move(lastPositionX);
+		turnRight(180);
+		presentAngle = 0;
+		
+	}
+	
+	public float setAngle(float degree, String direction) {
+		
+		if(direction == "right"){
+			presentAngle += degree;
+			if(presentAngle > 360) {
+				presentAngle = presentAngle -360;
+			}
+		}
+		
+		else if(direction == "left"){
+			presentAngle -= degree;
+			if(presentAngle < 0) {
+				presentAngle = 360 + presentAngle;
+			}
+		}
+		
+		else{
+			throw new IllegalArgumentException("Direction not valid");
+		}
+		
+		
+		return degree;
+		
+	}
+}
 
