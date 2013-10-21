@@ -157,7 +157,11 @@ import scala.inline;
 
 	}
 	
-	//TODO: DOC!
+	/**
+	 * Sets the number of floors the house has.
+	 * Checks if all entries are valid.
+	 * Prints out fancy stuff.
+	 */
 	public static void setHouseFloors() {
 		int i = 0;
 		while(i != 1){
@@ -191,7 +195,11 @@ import scala.inline;
 		}
 	}
 	
-	//TODO: DOC
+	/**
+	 * Sets the width of the house.
+	 * Checks if the entered values are valid.
+	 * Prints out some funky stuff.
+	 */
 	public static void setHouseWidth() {
 		int i = 0;
 		System.out.println("Okay, I got that. Lets go for the width!");
@@ -224,7 +232,11 @@ import scala.inline;
 		
 	}
 	
-	//TODO: DOC
+	/**
+	 * Sets the number of windows every floor of the house has.
+	 * Checks if the entries are valid.
+	 * Prints out fancy stuff.
+	 */
 	public static void setWindows() {
 		int i = 0;
 		System.out.println("Nice, lets give the whole thing some lights.");
@@ -258,7 +270,11 @@ import scala.inline;
 		}
 	}
 	
-	//TODO: DOC
+	/**
+	 * Sets the number of trees.
+	 * Checks if the entries are valid.
+	 * Prints out fancy stuff.
+	 */
 	public static void setTrees() {
 		int i = 0;
 		System.out.println("Okay, I feel like we could need some nature around.");
