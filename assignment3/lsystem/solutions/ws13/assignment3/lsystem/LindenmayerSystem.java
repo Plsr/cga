@@ -79,17 +79,21 @@ public class LindenmayerSystem {
      */
     public void run() {
         String current = applyRules();
+        System.out.println("Bei der turtle kommt an: " + current);
 
         for (char c : current.toCharArray()) {
+        	
             switch (c) {
                 case '+':
                     log.debug("Right Turn: {}", angle.value);
                     turtle.turnRight(angle.value);
+                    break;
                 case '[':
                     log.debug("Push Turtle to stack");
 		    // Das Shape-Objekt wird von der neuen Turtle-Instanz f??r die grafische Ausgabe ben??tigt.
                     Turtle t = new Turtle(turtle.getTurtleState(), shape);
                     turtles.push(t);
+                    break;
 		    // TODO Vervollst??ndigen
 
                 /*
@@ -111,14 +115,17 @@ public class LindenmayerSystem {
                 case '-':
                 	log.debug("Left turn : {}", angle.value);
                 	turtle.turnLeft(angle.value);
+                	break;
                 	
                 case 'm':
-                	turtle.up();
+                	
                 	turtle.move(length.value);
+                	break;
                 	
                 case 'M':
                 	turtle.down();
                 	turtle.move(length.value);
+                	break;
                 	
                 case ']':
                 	if(turtles.isEmpty()){
@@ -137,6 +144,8 @@ public class LindenmayerSystem {
      */
     private String applyRules() {
         String current = axiom.getAxiom();
+        System.out.println(current);
+        System.out.println("becomes");
 
         for (int i = 1; i < level.level; i++) {
             String temp = "";
@@ -145,6 +154,7 @@ public class LindenmayerSystem {
             }
             current = temp;
         }
+        System.out.println(current);
 
         String temp = "";
         for (char c : current.toCharArray()) {
@@ -152,6 +162,7 @@ public class LindenmayerSystem {
         }
 
         current = temp;
+        System.out.println(current);
         return current;
     }
 }

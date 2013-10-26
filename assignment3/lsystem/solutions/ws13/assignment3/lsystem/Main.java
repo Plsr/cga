@@ -21,9 +21,9 @@ public class Main extends Amcgala{
                 new Axiom("X"),
                 new Rules()
                         .addReplacementRule("F", "FF")
-                        .addReplacementRule("X", "F[-[F]+F]+F[+FF]-F")
-                        .addDrawingRule("F", "M")
-                        .addDrawingRule("X", ""),
+                        .addReplacementRule("X", "X[+X]X[-X]X")
+                        .addDrawingRule("F", "M+")
+                        .addDrawingRule("X", "M"),
                 new Level(6),
                 new Length(3),
                 new Angle(25),
@@ -39,15 +39,21 @@ public class Main extends Amcgala{
 
         CompositeShape shape2 = new CompositeShape();
         shape2.setColor(RGBColor.RED);
+        
+        /*Winkel: 90
+        Startstring: FX
+        Ableitungsregeln:
+        X \mapsto X+YF+
+        Y \mapsto -FX-Y
 
         LindenmayerSystem lindenmayerSystem2 = new LindenmayerSystem(
                 new Axiom("FX"),
                 new Rules()
-                        .addReplacementRule("Y", "FX-Y")
-                        .addReplacementRule("X", "X+YF")
+                        .addReplacementRule("Y", "-FX-Y")
+                        .addReplacementRule("X", "X+YF+")
                         .addDrawingRule("F", "M")
-                        .addDrawingRule("Y", "")
-                        .addDrawingRule("X", ""),
+                        .addDrawingRule("Y", "M-")
+                        .addDrawingRule("X", "+M"),
                 new Level(10),
                 new Length(15),
                 new Angle(90),
@@ -56,7 +62,7 @@ public class Main extends Amcgala{
                 0
         );
 
-        lindenmayerSystem2.run();
+        lindenmayerSystem2.run();*/
         scene.addShape(shape2);
         framework.addScene(scene);
     }
