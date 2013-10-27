@@ -93,6 +93,8 @@ public class LindenmayerSystem {
 		    // Das Shape-Objekt wird von der neuen Turtle-Instanz f??r die grafische Ausgabe ben??tigt.
                     Turtle t = new Turtle(turtle.getTurtleState(), shape);
                     turtles.push(t);
+                    System.out.println("Pushed " + t);
+                    System.out.println(turtles);
                     break;
 		    // TODO Vervollst??ndigen
 
@@ -132,7 +134,9 @@ public class LindenmayerSystem {
                 		
                 	}
                 	else{
-                		turtles.pop();
+                		turtle = new Turtle(turtles.pop().getTurtleState(), shape);
+                		System.out.println("Popped");
+                		System.out.println(turtles);
                 	}
             }
         }
