@@ -50,7 +50,7 @@ public class Main extends Amcgala{
                         .addDrawingRule("F", "M")
                         .addDrawingRule("Y", "M-")
                         .addDrawingRule("X", "+M"),
-                new Level(10),
+                new Level(0),
                 new Length(15),
                 new Angle(90),
                 shape2,
