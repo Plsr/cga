@@ -1,0 +1,55 @@
+package solutions.ws13.assignment4;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AgentMessages.AgentMessage;
+import org.amcgala.agent.AgentMessages.ChangeValue;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+
+/**
+* Fuellt ein Polygon mit einem Flood Fill Algorithmus.
+*/
+public class FloodFillAgent extends AmcgalaAgent {
+
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	  
+        if (update.currentCell().value() == 0) {
+        	
+        	
+        	/*int x = update.currentPosition().x();
+        	
+        	int y = update.currentPosition().y();
+        	World.Index xPlus = new World.Index(x + 1, y);
+        	World.Index xMinus = new World.Index(x - 1, y);
+        	World.Index yPlus = new World.Index(x, y + 1);
+        	World.Index yMinus = new World.Index(x, y - 1);
+        	this.spawnChild(xPlus);
+        	this.spawnChild(xMinus);
+        	this.spawnChild(yMinus);
+        	this.spawnChild(yPlus);
+        	
+        	System.out.println("Filled: " + update.currentPosition());
+        	return new AgentMessages.ChangeValue(1); */
+        	this.spawnChild(new World.Index(update.currentPosition().x()+1, update.currentPosition().y()));
+            this.spawnChild(new World.Index(update.currentPosition().x()-1, update.currentPosition().y()));
+            this.spawnChild(new World.Index(update.currentPosition().x(),   update.currentPosition().y()+1));
+            this.spawnChild(new World.Index(update.currentPosition().x(),   update.currentPosition().y()-1));
+            System.out.println("Filled: " + update.currentPosition());
+            return new AgentMessages.ChangeValue(1);
+        	
+        	
+    	}else{
+    		System.out.println("Died: " + update.currentPosition());
+    		success();
+            return die();
+        }
+    }
+    
+   
+    
+   
+}
+

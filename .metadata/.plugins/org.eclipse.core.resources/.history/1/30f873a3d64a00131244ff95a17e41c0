@@ -1,0 +1,103 @@
+package solutions.ws13.assignment4;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AgentMessages.AgentMessage;
+import org.amcgala.agent.AgentMessages.ChangeValue;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.CellWithIndex;
+
+import akka.Main.Terminator;
+import akka.dispatch.sysmsg.Terminate;
+
+/**
+* Fuellt ein Polygon mit einem Flood Fill Algorithmus.
+*/
+public class FloodFillAgent extends AmcgalaAgent {
+
+
+    @SuppressWarnings("deprecation")
+	@Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	  
+      if (update.currentCell().value() == 0) {
+        	
+        	
+    	  /* Meine Version
+    	   	
+    	   	//Aktuelle Position 
+    	   	int x = update.currentPosition().x();
+        	int y = update.currentPosition().y();
+        	
+        	//Nachbarfelder in World.Index festlegen
+        	World.Index xPlus = new World.Index(x + 1, y);
+        	World.Index xMinus = new World.Index(x - 1, y);
+        	World.Index yPlus = new World.Index(x, y + 1);
+        	World.Index yMinus = new World.Index(x, y - 1);
+        	
+        	//Kinder des Agenten auf Nachbarfelden spawnen
+        	this.spawnChild(xPlus);
+        	this.spawnChild(xMinus);
+        	this.spawnChild(yMinus);
+        	this.spawnChild(yPlus);
+        	
+        	//Aktuellen Agenten sterben lassen (funktioniert nicht?)
+        	success();
+        	this.die();
+        	
+        	//System.out.println("Filled: " + update.currentPosition());
+        	
+        	//Farbe aendern
+        	return new AgentMessages.ChangeValue(1); */
+    	
+    	  
+    	  //Svens Version
+    	  // Spawne die Agenten auf den benachbarten Feldern
+    	  int x = update.currentPosition().x();
+    	  int y = update.currentPosition().y();
+       
+    	  if(x < 1 || y < 1) {
+                if(x < 1) {
+                        x = 197;
+                }
+                if(y < 1) {
+                        y = 147;
+                }
+                this.spawnChild(new World.Index(x, y));
+                this.die();
+                return die();
+    	  }
+    	  
+    	  else if(x > 197 || y > 147) {
+                this.die();
+                return die();
+    	  }
+       
+       
+    	  this.spawnChild(new World.Index(x+1, y));
+    	  this.spawnChild(new World.Index(x-1, y));
+    	  this.spawnChild(new World.Index(x, y+1));
+    	  this.spawnChild(new World.Index(x, y-1));
+       
+    	  // Aendere die Hitnergrundfarbe
+    	  return new AgentMessages.ChangeValue(1);
+        	
+        	
+        	
+    	}
+    	
+    	else{
+    		System.out.println("Died: " + update.currentPosition());
+    		success();
+            return die();
+        }
+    }
+    	  
+    	  
+    
+   
+    
+   
+}
+

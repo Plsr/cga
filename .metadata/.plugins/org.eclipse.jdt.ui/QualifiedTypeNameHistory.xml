@@ -3,6 +3,20 @@
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
 <fullyQualifiedTypeName name="scala.inline"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="org.amcgala.Turtle"/>
+<fullyQualifiedTypeName name="java.io.Console"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment4.BresenhamLineAgent"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.Agent"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages.Failure."/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment4.FloodFillAgent"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages.AgentMessage"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages.ChangeValue"/>
+<fullyQualifiedTypeName name="akka.dispatch.sysmsg.Terminate"/>
+<fullyQualifiedTypeName name="akka.Main.Terminator"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.CellWithIndex"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.NeighbourCellWithIndex"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.Index"/>
 </qualifiedTypeNameHistroy>

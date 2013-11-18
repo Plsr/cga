@@ -1,0 +1,47 @@
+package solutions.ws13.assignment4;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AgentMessages.AgentMessage;
+import org.amcgala.agent.AgentMessages.ChangeValue;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.CellWithIndex;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.NeighbourCellWithIndex;
+
+import akka.Main.Terminator;
+import akka.dispatch.sysmsg.Terminate;
+
+/**
+ * Fuellt ein Polygon mit einem Flood Fill Algorithmus.
+ */
+public class FloodFillAgent extends AmcgalaAgent {
+
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected AgentMessages.AgentMessage onUpdate(
+			Simulation.SimulationUpdate update) {
+
+		if (update.currentCell().value() == 0) {
+			for (JCellWithIndex n : update.neighbours().values()) {
+				if (n.cell().value() == 0) {
+					int x = n.index().x();
+					int y = n.index().y();
+					spawnChild(x, y);
+				}
+			}
+
+			// Aendere die Hitnergrundfarbe
+			return new AgentMessages.ChangeValue(1);
+
+		}
+
+		else {
+			success();
+			return die();
+		}
+	}
+
+}

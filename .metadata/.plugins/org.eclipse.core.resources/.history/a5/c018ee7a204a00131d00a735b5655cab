@@ -1,0 +1,46 @@
+package solutions.ws13.assignment4;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AgentMessages.AgentMessage;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+
+/**
+* Fuellt ein Polygon mit einem Flood Fill Algorithmus.
+*/
+public class FloodFillAgent extends AmcgalaAgent {
+
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	System.out.println("Entered Flood Fill");  
+        if (update.currentCell().value() == 0) {
+        	
+        	
+        	int x = update.currentPosition().x();
+        	
+        	int y = update.currentPosition().y();
+        	World.Index xPlus = new World.Index(x + 1, y);
+        	World.Index xMinus = new World.Index(x - 1, y);
+        	World.Index yPlus = new World.Index(x, y + 1);
+        	World.Index yMinus = new World.Index(x, y - 1);
+        	this.spawnChild(xPlus);
+        	this.spawnChild(xMinus);
+        	this.spawnChild(yMinus);
+        	this.spawnChild(yPlus);
+        	
+        	return (AgentMessage) new FloodFillAgent();
+        	
+        	
+        	
+    	}else{
+            return die();
+        }
+    }
+    
+   
+    
+   
+}
+
