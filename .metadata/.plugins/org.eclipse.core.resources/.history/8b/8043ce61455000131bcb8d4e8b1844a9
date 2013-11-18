@@ -1,0 +1,128 @@
+package solutions.ws13.assignment5;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.JCellWithIndex;
+
+import scala.collection.script.Update;
+
+
+/**
+* Zeichnet eine Line von A nach B.
+*/
+public class FloydSteinbergAgent extends AmcgalaAgent {
+	
+
+    private int x1;
+    private int y1;
+    private int dx;
+    private int dy;
+    private int sx;
+    private int sy;
+    private int x;
+    private int y;
+    private int err;
+    private boolean draw;
+
+
+    public FloydSteinbergAgent() {
+    	System.out.println("Constructed");
+    	
+        
+        
+    }
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	
+    	
+    	int currentPhase = 1;
+    	
+    	switch (currentPhase){
+    	
+    		case 1: if(checkVisited(update.currentCell())){
+    					System.out.println("Checked cell");
+    					return die();
+    					}
+    				currentPhase = 2;
+    				System.out.println("Set Phasecounter to 2");
+    				
+    		case 2:  System.out.println("Entered Case 2");
+    	
+    	}
+    	/*if (draw) {
+            draw = false;
+            return changeValue(0);
+        }
+
+        if (x == x1 && y == y1) {
+            success();
+            System.out.println("DIED");
+            return die();
+        } else {
+            
+        	//bresenahmJS();
+        	bresenhamVorlesung(); // schlecht
+            World.Index point = new World.Index(x, y);
+            return moveTo(point);
+        }*/
+    	return die();
+
+
+    }
+    
+    public void completeX(){
+    	if(!(x==x1)){
+    		x++;
+    		draw = true;
+    	}
+    }
+    
+    public void completeY(){
+    	if(!(y==y1)){
+    		y++;
+    		draw = true;
+    	}
+    }
+    
+    public void bresenahmJS(){
+    	
+    	//Hier: err = dx - dy
+    	//System.out.println("Called Bresenham. x = " + x + " | y = " + y + " ||| x1 = " + x1 + " | y1 = " +y1);
+    	
+    	int e2 = err * 2;
+    	
+    	if(e2 > -dy){
+    		err -= dy;
+    		x += sx;
+    		//System.out.println("Added " + sy + " to y. New y : " + y);
+    	}
+    	
+    	if(e2 < dx){
+    		err += dx;
+    		y += sy;
+    		
+    	}
+    	
+    	draw = true;
+    	
+    }
+    
+    public void bresenhamVorlesung() {
+    	//Hier err = (dy * 2) - dx
+    	
+    	if(err >= 0){
+    		y += sy;
+    		err -= (dx * 2);
+    	}
+    	
+    	if(err < 0){
+    		x += sx;
+    		err += (dy * 2);
+    	}
+    	
+    	draw = true;
+    }
+}

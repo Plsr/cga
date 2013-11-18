@@ -1,0 +1,77 @@
+package solutions.ws13.assignment5;
+
+import java.util.List;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.CellWithIndex;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCellWithIndex;
+
+import scala.collection.script.Update;
+
+
+/**
+* Zeichnet eine Line von A nach B.
+*/
+public class FloydSteinbergAgent extends AmcgalaAgent {
+	
+
+	World.QuantisationError quant;
+
+
+    public FloydSteinbergAgent() {
+    	System.out.println("Constructed");
+    	
+        
+        
+    }
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	
+    	//Keep Track of Current Phase
+    	//TODO: Needed?
+    	int currentPhase = 1;
+    	
+    	
+    	switch (currentPhase){
+    	
+    		//Check if a cell was visited, if yes, kill agent, else continue
+    		case 1: 
+    			
+    			//Checks if cell was visited before
+    			if(checkVisited(update.currentCell())){
+    					return die();
+    					}
+    			
+    			//Cell hasnt been visited yet, continue on step 2
+    			currentPhase = 2;
+    			
+    				
+    		case 2:  
+    				System.out.println("Entered Case 2");
+    				List<InformationObject> x = update.currentCell().informationObjects();
+    				System.out.println(x);
+    				for (World.InformationObject informationObject:update.currentCell().informationObjects()) {
+    						System.out.println("Entered for-loop");
+    						if (informationObject instanceof World.QuantisationError) {
+    								World.QuantisationError e = (World.QuantisationError) informationObject;
+    								System.out.println(e);
+    								//TODO: Finish
+    						}
+    				}
+    			     
+    	
+    	}
+    	
+    	return die();
+
+
+    }
+}
+
+    
+    

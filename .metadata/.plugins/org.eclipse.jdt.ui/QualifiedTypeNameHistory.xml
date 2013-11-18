@@ -15,8 +15,11 @@
 <fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages.ChangeValue"/>
 <fullyQualifiedTypeName name="akka.dispatch.sysmsg.Terminate"/>
 <fullyQualifiedTypeName name="akka.Main.Terminator"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World.CellWithIndex"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.NeighbourCellWithIndex"/>
+<fullyQualifiedTypeName name="scala.collection.script.Update"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.JCellWithIndex"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.CellWithIndex"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.InformationObject"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.Index"/>
 </qualifiedTypeNameHistroy>
