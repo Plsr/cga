@@ -27,7 +27,7 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
 
 
     public FloydSteinbergAgent() {
-    	//System.out.println("Constructed");
+    	System.out.println("Constructed");
     	
         
         

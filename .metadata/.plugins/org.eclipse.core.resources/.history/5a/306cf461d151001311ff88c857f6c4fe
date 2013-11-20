@@ -27,7 +27,7 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
 
 
     public FloydSteinbergAgent() {
-    	//System.out.println("Constructed");
+    	System.out.println("Constructed");
     	
         
         
@@ -96,7 +96,6 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
     			//System.out.println("Entered Case 6");
     			World.QuantisationError downLeft = new World.QuantisationError((3/16) * quant.value());
     			putInformationObjectTo(getNeighourIndex(Directions.DOWN_LEFT(), update), downLeft);
-    			this.spawnChild(getNeighourIndex(Directions.DOWN_LEFT(), update));
     			currentPhase = 7;
     			
     		case 7:
