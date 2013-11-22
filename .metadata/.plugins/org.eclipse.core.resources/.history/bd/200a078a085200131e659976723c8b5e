@@ -1,0 +1,120 @@
+package solutions.ws13.assignment5;
+
+import java.util.List;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Direction;
+import org.amcgala.agent.Directions;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.CellWithIndex;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCell;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.QuantisationError;
+
+import scala.collection.script.Update;
+
+
+public class FloydSteinbergAgent extends AmcgalaAgent {
+	
+
+	World.QuantisationError quant;
+
+
+    public FloydSteinbergAgent() {
+    	//System.out.println("Constructed");  
+    }
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	
+    	//Keep Track of Current Phase
+    	//TODO: Needed?
+    	int currentPhase = 1;
+    	
+    	
+    	switch (currentPhase){
+    	
+    		//Check if a cell was visited, if yes, kill agent, else continue
+    		case 1: 
+    			//System.out.println("Entered Case 1");
+    			//Checks if cell was visited before
+    			if(checkVisited(update.currentCell())){
+    					return die();
+    					}
+    			
+    			//Cell hasnt been visited yet, continue on step 2
+    			currentPhase = 2;
+    			
+    				
+    		case 2:  
+    				//System.out.println("Entered Case 2");
+    				//List<InformationObject> x = update.currentCell().informationObjects();
+    				//System.out.println(x);
+    				
+    				float oldValue = update.currentCell().value();
+    				float changedValue = 0;
+    				for (World.InformationObject informationObject:update.currentCell().informationObjects()) {
+    						System.out.println("Entered for-loop");
+    						if (informationObject instanceof World.QuantisationError) {
+    								World.QuantisationError e = (World.QuantisationError) informationObject;
+    								changedValue += e.value();
+    						}
+    				}
+    				this.changeValue(changedValue);
+    				quant = new World.QuantisationError(oldValue - changedValue);
+    				currentPhase = 3;
+    				
+    		case 3:
+    			//System.out.println("Entered Case 3");
+    			World.QuantisationError right = new World.QuantisationError((7/16) * quant.value());
+    			putInformationObjectTo(getNeighourIndex(Directions.RIGHT(), update), right);
+    			currentPhase = 4;
+    			
+    		case 4:
+    			//System.out.println("Entered Case 4");
+    			World.QuantisationError downRight = new World.QuantisationError((1/16) * quant.value());
+    			putInformationObjectTo(getNeighourIndex(Directions.DOWN_RIGHT(), update), downRight);
+    			currentPhase = 5;
+    			
+    		case 5:
+    			//System.out.println("Entered Case 5");
+    			World.QuantisationError down = new World.QuantisationError((5/16) * quant.value());
+    			putInformationObjectTo(getNeighourIndex(Directions.DOWN(), update), down);
+    			currentPhase = 6;
+    			
+    		case 6:
+    			//System.out.println("Entered Case 6");
+    			World.QuantisationError downLeft = new World.QuantisationError((3/16) * quant.value());
+    			putInformationObjectTo(getNeighourIndex(Directions.DOWN_LEFT(), update), downLeft);
+    			if(update.currentPosition().x() != 0)
+    				this.spawnChild(getNeighourIndex(Directions.DOWN_LEFT(), update));
+    			currentPhase = 7;
+    			
+    		case 7:
+    			//System.out.println("Entered Case 7");
+    			this.putVisitedObject(update);
+    			currentPhase = 8;
+    			
+    		case 8:
+    			//System.out.println("Entered Case 8");
+    			currentPhase = 1;
+    			moveTo(Directions.RIGHT(), update);
+    			break;
+    			
+    			
+    		default:
+    			return die();
+    	
+    	}
+    	
+    	
+
+
+    }
+}
+
+    
+    

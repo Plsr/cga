@@ -19,10 +19,11 @@
 <fullyQualifiedTypeName name="scala.collection.script.Update"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.JCellWithIndex"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.CellWithIndex"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World.Index"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World.InformationObject"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.QuantisationError"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Direction"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.Index"/>
+<fullyQualifiedTypeName name="javax.naming.directory.DirContext"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.InformationObject"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Directions"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,88 @@
+package solutions.ws13.assignment5;
+
+import java.util.List;
+
+import javax.naming.directory.DirContext;
+
+import org.amcgala.agent.Agent;
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AgentServer;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Direction;
+import org.amcgala.agent.Directions;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.CellWithIndex;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCell;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.QuantisationError;
+
+import scala.collection.script.Update;
+
+
+public class FloydSteinbergAgent extends AmcgalaAgent {
+	
+
+
+
+    public FloydSteinbergAgent() {
+    	  
+    }
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	
+    	int currentPhase = 1;
+    	
+    	if(currentPhase == 1){
+    		if(checkVisited(update.currentCell())){
+    			this.die();
+    		}
+    		else currentPhase = 2;
+    	}
+    	
+    	if(currentPhase == 2){
+    		
+    		float cellValue = update.currentCell().value();
+    		float changeValue = 0;
+    		
+    		for (World.InformationObject informationObject:update.currentCell().informationObjects()) {
+    			   if (informationObject instanceof World.QuantisationError) {
+    			      World.QuantisationError e = (World.QuantisationError) informationObject;
+    			      changeValue += e.value();
+    			      
+    			   }
+    		}
+    		
+    		    		
+    		changeValue();   
+
+    		
+    		
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+
+
+    }
+	
+	
+	
+public AgentMessages.AgentMessage changeValue(){
+	return changeValue(1);
+}
+
+public AgentMessages.AgentMessage MoveToPoint(Simulation.SimulationUpdate update){
+	return moveTo(Directions.RIGHT(), update);
+}
+    
+}
+
+    
+    

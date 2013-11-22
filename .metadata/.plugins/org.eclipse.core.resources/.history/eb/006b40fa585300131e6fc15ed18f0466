@@ -1,0 +1,81 @@
+package solutions.ws13.assignment5;
+
+import java.util.List;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Direction;
+import org.amcgala.agent.Directions;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.CellWithIndex;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCell;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.QuantisationError;
+
+import scala.collection.script.Update;
+
+
+/**
+* Zeichnet eine Line von A nach B.
+*/
+public class FloydSteinbergAgent extends AmcgalaAgent {
+	
+
+	
+
+
+    public FloydSteinbergAgent() {
+    	//System.out.println("Constructed");
+    	
+        
+        
+    }
+    
+    World.QuantisationError quant;
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	
+    	int phase = 1;
+    	
+    	if(phase == 1){
+    		if(checkVisited(update.currentCell())){
+    			return die();
+    		}
+    		
+    		phase = 2;
+    		
+    	if(phase == 2){
+    		float err = 0;
+    		float oldVal = update.currentCell().value();
+    		for (World.InformationObject informationObject:update.currentCell().informationObjects()) {
+    			   if (informationObject instanceof World.QuantisationError) {
+    			      World.QuantisationError e = (World.QuantisationError) informationObject;
+    			      err += e.value();
+    			   }
+    		}
+
+    		changeValue(oldVal + err);
+    		
+    		if(update.currentCell().value() > 0.5){
+    			changeValue(1);
+    		}
+    		else{
+    			changeValue(0);
+    		}
+    		quant = new World.QuantisationError(oldVal - update.currentCell().value());
+    		phase = 3;
+    		
+    	}
+    	
+    	if(phase == 3){
+    		World.QuantisationError right = new World.QuantisationError((7/16) * quant.value());
+			putInformationObjectTo(getNeighourIndex(Directions.RIGHT(), update), right);
+			phase = 3;
+    	}
+    }
+    	
+ }
+}
