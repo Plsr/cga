@@ -147,7 +147,7 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
 				
 				//Save value of inspected cell
 				oldPixel = update.currentCell().value(); 
-				
+				error = oldPixel;
 				//Get error of surrounding pixels
 				for (World.InformationObject informationObject : update.currentCell().informationObjects()) { 
 					if (informationObject instanceof World.QuantisationError) { 
@@ -157,15 +157,9 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
 					} 
 				
 				//Decide if value is closer to 0 or 1 
-				if(oldPixel + error < 0.5f){
-					newPixel = 0.f;
-				}
-				else{
-					newPixel = 1.f;
-				}
-				
+				newPixel = Math.round(error);				
 				//Calculate new error for cases 3-6
-				error = (float) oldPixel-newPixel; 
+				error -= newPixel; 
 				
 				//Change Pixel
 				return changeValue(newPixel); 
@@ -174,22 +168,22 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
 			case 3: 
 				//Put Quantization to RIGHT neighbor
 				World.QuantisationError errorRight = new World.QuantisationError(error * 7.f / 16.f);
-				return putInformationObjectTo(this.getNeighourIndex(Directions.RIGHT(), update), errorRight); 
+				return putInformationObjectTo(this.getNeighbourIndex(Directions.RIGHT(), update), errorRight); 
 			
 			case 4: 
 				//Put Quantization to DOWN_RIGHT neighbor
 				World.QuantisationError errorDownRight = new World.QuantisationError(error * 1.f / 16.f);
-				return putInformationObjectTo(this.getNeighourIndex(Directions.DOWN_RIGHT(), update), errorDownRight); 
+				return putInformationObjectTo(this.getNeighbourIndex(Directions.DOWN_RIGHT(), update), errorDownRight); 
 			
 			case 5:
 				//Put Quantization to DOWN neighbor
 				World.QuantisationError errorDown = new World.QuantisationError(error * 5.f / 16.f);
-				return putInformationObjectTo(this.getNeighourIndex(Directions.DOWN(), update), errorDown); 
+				return putInformationObjectTo(this.getNeighbourIndex(Directions.DOWN(), update), errorDown); 
 			
 			case 6:
 				//Put Quantization to DOWN_LEFT neighbor
 				World.QuantisationError errorDownLeft = new World.QuantisationError(error * 3.f / 16.f);
-				return putInformationObjectTo(this.getNeighourIndex(Directions.DOWN_LEFT(), update), errorDownLeft); 
+				return putInformationObjectTo(this.getNeighbourIndex(Directions.DOWN_LEFT(), update), errorDownLeft); 
 			
 			case 7: 
 				//Mark Cell as visited
@@ -198,7 +192,7 @@ public class FloydSteinbergAgent extends AmcgalaAgent {
 			case 8: 
 				//Spawn child in next line if there is no child yet, performance and stuff
 				if(update.currentPosition().x() > 0 && !hasChild){ 
-					spawnChild(getNeighourIndex(Directions.DOWN_LEFT(), update)); 
+					spawnChild(getNeighbourIndex(Directions.DOWN_LEFT(), update)); 
 					hasChild = true; 
 					} 
 				//reset and move to next cell

@@ -1,0 +1,71 @@
+package solutions.ws13.assignment6;
+
+import org.amcgala.agent.AgentMessages;
+import org.amcgala.agent.AmcgalaAgent;
+import org.amcgala.agent.Directions;
+import org.amcgala.agent.Simulation;
+import org.amcgala.agent.World;
+import org.amcgala.agent.World.Index;
+import org.amcgala.agent.World.JCell;
+import org.amcgala.agent.World.JCellWithIndex;
+
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
+
+
+public class RaindropAgent extends AmcgalaAgent {
+	private int phase = 0;
+	private float travelValue = 0.f;
+	private float maxDiff = 0.f;
+	private int maxCells = 5;
+	private int cellsVisited = 0;
+
+
+
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	//Increase phase every time function is entered
+    			phase++; 
+    			Index moveCell = update.currentPosition();
+    			
+    			switch (phase) { 
+    				case 1:
+    					float cng = update.currentCell().value() + travelValue;
+    					
+    					return this.changeValue(cng);
+    					
+    					
+    				case 2:
+
+					for (JCellWithIndex n : update.neighbours().values()) {
+						
+						if(n.cell().value() - update.currentCell().value()  > maxDiff){
+							maxDiff = n.cell().value() - update.currentCell().value();
+							moveCell = n.index();
+						}
+						
+					}
+    				travelValue = 0.4f * maxDiff;
+    				maxDiff = 0;
+    				return changeValue(update.currentCell().value() - travelValue);
+    					
+    					
+    				case 3: 
+    					if(maxCells == cellsVisited){
+    						return die();
+    					}
+    					
+    					cellsVisited++;
+    					phase = 0;
+    					return moveTo(getNeighbourIndex(Directions.RIGHT(), update));
+    					
+    				default:
+    					return die();
+    					
+    					
+    					
+       
+    			}
+    			
+    }
+}
