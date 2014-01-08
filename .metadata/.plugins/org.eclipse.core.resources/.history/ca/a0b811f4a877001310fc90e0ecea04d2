@@ -1,0 +1,27 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.World.Index;
+import org.amcgala.agent.World.InformationObject;
+
+public class StartPositionObject implements InformationObject {
+	
+	public Index startPosition;
+	
+	public StartPositionObject() {
+		
+	}
+	
+	public StartPositionObject(Index startPosition) {
+		this.startPosition = startPosition;
+	}
+	
+	void set_startPosition(Index startPosition) {
+		this.startPosition = startPosition;
+	}
+	
+	Index get_startPosition() {
+		return startPosition;
+	}
+	
+	
+}

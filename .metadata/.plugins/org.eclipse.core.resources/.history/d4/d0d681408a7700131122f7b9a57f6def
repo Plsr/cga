@@ -1,0 +1,45 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.Agent.Payload;
+
+import scala.Product;
+import scala.Serializable;
+import scala.collection.Iterator;
+
+public class spawnCoordinatesPayload implements Payload, Serializable, Product {
+
+	public spawnCoordinatesPayload() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public boolean canEqual(Object arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int productArity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object productElement(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<Object> productIterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String productPrefix() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

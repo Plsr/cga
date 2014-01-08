@@ -16,7 +16,6 @@
 <fullyQualifiedTypeName name="org.amcgala.agent.World.CellWithIndex"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Direction"/>
 <fullyQualifiedTypeName name="javax.naming.directory.DirContext"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World.InformationObject"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Agent"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.AgentServer"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages.ChangeValue"/>
@@ -25,10 +24,25 @@
 <fullyQualifiedTypeName name="org.amcgala.agent.AgentMessages.AgentMessage"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Simulation"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Simulation.SimulationUpdate"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World.QuantisationError"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.JCell"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World"/>
-<fullyQualifiedTypeName name="org.amcgala.agent.World.Index"/>
+<fullyQualifiedTypeName name="org.amcgala.math.Matrix"/>
+<fullyQualifiedTypeName name="org.amcgala.renderer.Pixel"/>
+<fullyQualifiedTypeName name="org.amcgala.math.Vector3d"/>
+<fullyQualifiedTypeName name="org.amcgala.shape.Box"/>
+<fullyQualifiedTypeName name="org.amcgala.math.Vertex3f"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.World.JCellWithIndex"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.QuantisationError"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.Agent.Payload"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.spawnCoordinatesPayload"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.InformationObject"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.costCalculation"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.Base"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.spawnCoordinatesObject"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.StartPositionObject"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.CoordinatesObject"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.HoneyCoordinatesObject"/>
+<fullyQualifiedTypeName name="org.amcgala.agent.World.Index"/>
+<fullyQualifiedTypeName name="solutions.ws13.assignment8.BresenhamLineAgent"/>
 <fullyQualifiedTypeName name="org.amcgala.agent.Directions"/>
 </qualifiedTypeNameHistroy>

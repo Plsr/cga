@@ -1,0 +1,58 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.World.InformationObject;
+
+import scala.Product;
+import scala.Serializable;
+import scala.collection.Iterator;
+
+public class spawnCoordinatesObject implements InformationObject, Product,
+		Serializable {
+	
+	int xCoord, yCoord;
+
+	public spawnCoordinatesObject(int x, int y) {
+		// TODO Auto-generated constructor stub
+		xCoord = x;
+		yCoord = y;
+	}
+	
+	public int getX() {
+		return xCoord;
+	}
+	
+	public int getY() {
+		return yCoord;
+	}
+
+	@Override
+	public boolean canEqual(Object arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int productArity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object productElement(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<Object> productIterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String productPrefix() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

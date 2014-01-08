@@ -1,0 +1,9 @@
+package solutions.ws13.assignment8;
+
+public class HoneyCoordinatesObject {
+
+	public HoneyCoordinatesObject() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

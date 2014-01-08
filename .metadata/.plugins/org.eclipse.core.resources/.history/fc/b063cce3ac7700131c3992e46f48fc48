@@ -1,0 +1,24 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.*;
+
+import static solutions.ws13.assignment8.PayloadUtils.*;
+
+
+public class Ameise extends AmcgalaAgent {
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+
+        // Beispiel, wie man Honig mit einer Ameise aufnehmen und transportieren kann.
+
+        for (Agent.Payload payload : update.currentCell().payloadObjects()) {
+            if(isHoney(payload)) {
+                // nimmt den Honig auf
+                return takePayload(payload);
+            }
+        }
+
+        // Ameise macht in dieser Runde nichts.
+        return moveTo(getRandomNeighbour(update).index());
+    }
+}

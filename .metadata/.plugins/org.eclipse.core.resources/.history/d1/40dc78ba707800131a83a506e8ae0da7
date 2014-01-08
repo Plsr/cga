@@ -1,0 +1,242 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.*;
+import org.amcgala.agent.Agent.Payload;
+import org.amcgala.agent.World.Index;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.QuantisationError;
+
+import static solutions.ws13.assignment8.PayloadUtils.*;
+
+
+public class Ameise extends AmcgalaAgent {
+	
+	private int phase = 1;
+	
+	//Coordinates of spawn
+	private int spawnX = 0;
+	private int spawnY = 0;
+	
+	//Coordinates of Honey
+	private int honeyX = 0;
+	private int honeyY = 0;
+	
+	//Is the very first Agent?
+	private boolean isFirst = true;
+	
+	private boolean hasChild = false;
+	private boolean honeyFound = false;
+	
+	
+	
+	@Override 
+	protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) { 
+	
+		/**
+		 * Check the informationObjects on the current field. Those can be:
+		 * 
+		 * 1.	CoordinatesObject
+		 * 		Holds the Index of the Spawn point. Every Agent on the map needs to know that
+		 * 2.	HoneyCoordinatesObject
+		 * 		Holds the Coordinates of the honey. Only Agents on their way to collect honey need to
+		 * 		know that.
+		 * 3.	VisitedObject
+		 * 		Tells the Agent if the field has been visited yet. Only important in the search-phase.
+		 * 		Is checked in case 1.
+		 * 4.	Base
+		 * 		Not checked, irrelevant.
+		 */
+		for (World.InformationObject inforObject : update.currentCell().informationObjects()) { 
+			if (inforObject instanceof CoordinatesObject) {
+				//Save spawn coordinates
+				spawnX = ((CoordinatesObject) inforObject).getX();
+				spawnY = ((CoordinatesObject) inforObject).getY();
+				
+				isFirst = false; //found Object, cannot be the first agent
+				
+			}
+			if (inforObject instanceof HoneyCoordinatesObject) {
+				//Save honey coordinates
+				honeyX = ((HoneyCoordinatesObject) inforObject).getX();
+				honeyY = ((HoneyCoordinatesObject) inforObject).getY();
+				
+				phase = 11; //immediately start with moving to honey
+			}
+		} 
+		
+		/**
+		 * If this Agent is the very first Agent of the simulation, it is spawned at the spawn.
+		 * Save the current position as spawn coordinates. Object is deployed in case 4.
+		 */
+		if(isFirst){
+			spawnX = update.currentPosition().x();
+			spawnY = update.currentPosition().y();
+			
+			isFirst = false; //dirty fix
+		}
+			
+
+	switch (phase) { 
+		
+		/**
+		 *+++SEARCH HONEY+++
+		 * Die if field has already been visited - nothing to do here.
+		 * NOTE: This case is only entered during the "dithering"-Phase. It has nouse later on.
+		 */
+		case 1:
+			if (checkVisited(update.currentCell())) { 
+				return die();
+			}
+			
+		/**
+		 * Check if there is honey on the current field.
+		 * If so, pick it up.	
+		 */
+		case 2:
+		        for (Agent.Payload payload : update.currentCell().payloadObjects()) {
+		            if(isHoney(payload)) {
+		            	honeyFound = true;
+		            	//save honey coordinates
+		            	honeyX = update.currentPosition().x();
+		            	honeyY = update.currentPosition().y();
+		            	
+		            	phase = 7; //go back on the way home
+		                
+		                return takePayload(payload); // nimmt den Honig auf
+		            }
+		        }
+		        
+		        phase = 3; //nothing found, keep searching
+			
+		/**
+		 * Mark the current field as visited.
+		 */
+		case 3: 
+			phase = 4;
+			return putVisitedObject(update); 
+		
+		/**
+		 * First part of child spawn.
+		 * If this agent has no child yet, put an InformationObject to the field where its going to 
+		 * be spawned to let it know where the spawn is.	
+		 */
+		case 4: 
+			if(update.currentPosition().x() > 0 && !hasChild){ 
+				InformationObject spawn = new CoordinatesObject(spawnX, spawnY);
+				World.Index downLeft = getNeighbourIndex(Directions.DOWN_LEFT(), update);
+				
+				phase = 5;
+				
+				return putInformationObjectTo(downLeft, spawn);
+			} 
+
+		/**
+		 * Second part of child spawn.
+		 * Actually spawn the child.	
+		 */
+		case 5:
+			if(update.currentPosition().x() > 0 && !hasChild){ 
+				
+				World.Index downLeft = getNeighbourIndex(Directions.DOWN_LEFT(), update);
+				phase = 6;
+				
+				spawnChild(downLeft);
+			}  
+		
+		/**
+		 * Move the Agent one field to the right.
+		 * No informationObject needed, Agent already knwos where the spawn is. 	
+		 */
+		case 6:
+			phase = 1; // start over again
+			
+			return moveTo(Directions.RIGHT(), update);
+			
+		/**
+		 * +++MOVE HOME+++
+		 * 	Uses Bresenham to find the fastest way back to spawn.
+		 */
+		case 7:
+			BresenhamLineAgent brsnhmAgent = new BresenhamLineAgent(update.currentPosition().x(), update.currentPosition().y(), spawnX, spawnY);
+			Index nextPoint = brsnhmAgent.getNextPoint();
+			
+			//Is not at spawn yet.
+			if(nextPoint.y() != -1){
+				phase = 7; //stay in this case
+				return moveTo(nextPoint);
+			} 
+			else {
+				phase = 8; //move on
+			}
+			
+		/**
+		 * Back at spawn, put informationObject with spawn coordinates down.	
+		 */
+		case 8:
+			InformationObject spawn = new CoordinatesObject(spawnX, spawnY);
+			phase = 9;
+			return putInformationObjectTo(update.currentPosition(), spawn);
+			
+		/**
+		 * 	
+		 */
+		case 9:
+			HoneyCoordinatesObject target = new HoneyCoordinatesObject(honeyX, honeyY);
+			phase = 10;
+			return putInformationObjectTo(update.currentPosition(), target);
+			
+		case 10:
+			System.out.println(update.currentCell().informationObjects());
+			spawnChild();
+			
+
+			
+		case 11:
+			//System.out.println("I DROPPED THROUGH! :)");
+			//spawnChild();
+			BresenhamLineAgent toHoney = new BresenhamLineAgent(update.currentPosition().x(), update.currentPosition().y(), honeyX, honeyY);
+			Index nextPointToHoney = toHoney.getNextPoint();
+			
+			if(nextPointToHoney.y() != -1){
+				phase = 11;
+				
+				return moveTo(nextPointToHoney);
+			}
+			else {
+				phase = 12;
+			}
+			
+		case 12:
+			for (Agent.Payload payload : update.currentCell().payloadObjects()) {
+	            if(isHoney(payload)) {
+	            	honeyFound = true;
+	            	honeyX = update.currentPosition().x();
+	            	honeyY = update.currentPosition().y();
+	            	phase = 7; 
+	            	System.out.println("I CAME FROM SPAWN AND FOUND HONEY");
+	                // nimmt den Honig auf
+	                return takePayload(payload);
+	            }
+	        }
+			
+			
+		default: 
+			return die(); 
+			
+		} 
+	
+	}
+	
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

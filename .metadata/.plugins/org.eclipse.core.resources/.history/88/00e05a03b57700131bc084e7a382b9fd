@@ -1,0 +1,70 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.World;
+
+public class BresenhamLineAgent {
+	
+	 private int x1;
+	 private int y1;
+	 private int dx;
+	 private int dy;
+	 private int sx;
+	 private int sy;
+	 private int x;
+	 private int y;
+	 private int err;
+	 World.Index point;
+
+	public BresenhamLineAgent(int x0, int y0, int x1, int y1) {
+    	System.out.println("LINE");
+        this.x1 = x1;
+        this.y1 = y1;
+
+
+        dx = Math.abs(x1 - x0);
+        dy = Math.abs(y1 - y0);
+        
+      
+        sx = (x0 < x1) ? 1 : -1;
+        sy = (y0 < y1) ? 1 : -1;
+
+        this.x = x0;
+        this.y = y0;
+
+        //this.err = dx - dy; //bresenhamJS
+        this.err = (2 * dy) - dx; //bresenhamVorlseung();
+        
+        System.out.println("Destination: x: " + x + " and y: " + y + ". Err = " + err);
+        
+        
+        if (x == x1 && y == y1) {
+        	System.out.println("FINISHED");
+        	return;
+            
+        } else {
+            
+        	
+        	bresenhamVorlesung(); // schlecht
+            point = new World.Index(x, y);
+            return;
+        }
+        
+    }
+	
+	public void bresenhamVorlesung() {
+    	//Hier err = (dy * 2) - dx
+    	
+    	if(err >= 0){
+    		y += sy;
+    		err -= (dx * 2);
+    	}
+    	
+    	if(err < 0){
+    		x += sx;
+    		err += (dy * 2);
+    	}
+    	
+
+    }
+
+}

@@ -1,0 +1,188 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.*;
+import org.amcgala.agent.Agent.Payload;
+import org.amcgala.agent.World.Index;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.QuantisationError;
+
+import static solutions.ws13.assignment8.PayloadUtils.*;
+
+
+public class Ameise extends AmcgalaAgent {
+	
+	private int phase = 1;
+	
+	//Coordinates of spawn
+	private int spawnX = 0;
+	private int spawnY = 0;
+	
+	//Coordinates of Honey
+	private int honeyX = 0;
+	private int honeyY = 0;
+	
+	//Is the very first Agent?
+	private boolean isFirst = true;
+	
+	private boolean hasChild = false;
+	private boolean honeyFound = false;
+	
+	
+	
+	@Override 
+	protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) { 
+	
+		
+		
+		for (World.InformationObject inforObject : update.currentCell().informationObjects()) { 
+			if (inforObject instanceof CoordinatesObject) {
+				//System.out.println("POSITION NOTED");
+				spawnX = ((CoordinatesObject) inforObject).getX();
+				spawnY = ((CoordinatesObject) inforObject).getY();
+				isFirst = false;
+				
+			}
+			if (inforObject instanceof HoneyCoordinatesObject) {
+				honeyX = ((CoordinatesObject) inforObject).getX();
+				honeyY = ((CoordinatesObject) inforObject).getY();
+				System.out.println("The Honey is at :" + honeyX + "|" + honeyY);
+				phase = 9;
+			}
+		} 
+		
+		if(isFirst){
+			System.out.println("FIRST AGENT");
+			spawnX = update.currentPosition().x();
+			spawnY = update.currentPosition().y();
+			System.out.println("SPANW AT " +spawnX + "|" + spawnY);
+			isFirst = false;
+			return moveTo(Directions.RIGHT(), update);
+		}
+		
+		
+		
+		
+		
+		
+		
+			
+
+	switch (phase) { 
+		case 1:
+			//System.out.println("ENTERED CASE 1");
+			//Kill Agent if Cell has already been visited - nothing to do here.
+			if (checkVisited(update.currentCell())) { 
+			return die();
+			}
+			
+			
+		case 2:
+			//System.out.println("ENTERED CASE 2");
+			// Beispiel, wie man Honig mit einer Ameise aufnehmen und transportieren kann.
+		        for (Agent.Payload payload : update.currentCell().payloadObjects()) {
+		            if(isHoney(payload)) {
+		            	honeyFound = true;
+		            	honeyX = update.currentPosition().x();
+		            	honeyY = update.currentPosition().y();
+		            	phase = 7; 
+		                // nimmt den Honig auf
+		                return takePayload(payload);
+		            }
+		        }
+		        
+		        phase = 3;
+			
+		
+		case 3: 
+			//System.out.println("ENTERED CASE 3");
+			//Mark Cell as visited
+			phase = 4;
+			return putVisitedObject(update); 
+		
+		case 4: 
+			//System.out.println("ENTERED CASE 4");
+			//Spawn child in next line if there is no child yet, performance and stuff
+			if(update.currentPosition().x() > 0 && !hasChild){ 
+				//Put Object with spawn coordinates to the child's new field to let it know where the spawn is.
+				InformationObject spawn = new CoordinatesObject(spawnX, spawnY);
+				World.Index downLeft = getNeighbourIndex(Directions.DOWN_LEFT(), update);
+				phase = 5;
+				
+				return putInformationObjectTo(downLeft, spawn);
+				} 
+			//reset and move to next cell
+		case 5:
+			//System.out.println("ENTERED CASE 5");
+			if(update.currentPosition().x() > 0 && !hasChild){ 
+				
+				World.Index downLeft = getNeighbourIndex(Directions.DOWN_LEFT(), update);
+				phase = 6;
+				
+				spawnChild(downLeft);
+				}  
+			
+		case 6:
+			//System.out.println("ENTERED CASE 6");
+			phase = 1;
+			
+			
+			return moveTo(Directions.RIGHT(), update);
+			
+		case 7:
+			System.out.println("I FOUND HONEY");
+			System.out.println("Position: " + update.currentPosition());
+			BresenhamLineAgent brsnhmAgent = new BresenhamLineAgent(update.currentPosition().x(), update.currentPosition().y(), spawnX, spawnY);
+			Index nextPoint = brsnhmAgent.getNextPoint();
+			System.out.println(nextPoint);
+			
+			if(nextPoint.y() != -1){
+				phase = 7;
+				
+				return moveTo(nextPoint);
+			}
+			else {
+				phase = 8;
+			}
+			
+		case 8:
+			System.out.println("I AM HOME :) " + update.currentPosition());
+			
+			HoneyCoordinatesObject target = new HoneyCoordinatesObject(honeyX, honeyY);
+			InformationObject spawn = new CoordinatesObject(spawnX, spawnY);
+			
+			
+			
+			putInformationObjectTo(update.currentPosition(), target);
+			putInformationObjectTo(update.currentPosition(), spawn);
+			
+			
+			spawnChild(update.currentPosition());
+			System.out.println("I SHOULD'VE SPAWNED A CHILD");
+			System.out.println("CHECK IF OBJECTS WERE SET");
+			System.out.println(update.currentCell().informationObjects());
+			
+		case 9:
+			System.out.println("I DROPPED THROUGH TO PHASE 9");
+			
+			
+		default: 
+			return die(); 
+			
+	} 
+		
+	
+	}
+	
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

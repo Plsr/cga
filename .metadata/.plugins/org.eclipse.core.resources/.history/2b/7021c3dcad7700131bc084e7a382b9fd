@@ -1,0 +1,201 @@
+package solutions.ws13.assignment8;
+
+import org.amcgala.agent.*;
+import org.amcgala.agent.Agent.Payload;
+import org.amcgala.agent.World.Index;
+import org.amcgala.agent.World.InformationObject;
+import org.amcgala.agent.World.JCellWithIndex;
+import org.amcgala.agent.World.QuantisationError;
+
+import static solutions.ws13.assignment8.PayloadUtils.*;
+
+
+public class Ameise extends AmcgalaAgent {
+	
+	private int phase = 1;
+	
+	//Coordinates of spawn
+	private int spawnX = 0;
+	private int spawnY = 0;
+	
+	//Is the very first Agent?
+	private boolean isFirst = true;
+	
+	private boolean hasChild = false;
+	private boolean honeyFound = false;
+
+	
+	
+	@Override 
+	protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) { 
+		
+		
+		
+	/**
+		for (World.InformationObject informationObject : update.currentCell().informationObjects()) { 
+			if (informationObject instanceof spawnCoordinatesObject) {
+				//System.out.println("POSITION NOTED");
+				spawnX = ((spawnCoordinatesObject) informationObject).getX();
+				spawnY = ((spawnCoordinatesObject) informationObject).getY();
+				isFirst = false;
+			}
+		} 
+			
+		if(isFirst){
+			System.out.println("FIRST AGENT");
+			spawnX = update.currentPosition().x();
+			spawnY = update.currentPosition().y();
+			System.out.println("SPANW AT " +spawnX + "|" + spawnY);
+			isFirst = false;
+		}
+		
+		
+		if(!honeyFound){
+			phase = 1;
+		}
+		else {
+			phase = 8;
+		}
+		
+		System.out.println("THIS SHIT REALLY STARTED");
+			
+
+	switch (phase) { 
+		case 1:
+			//System.out.println("ENTERED CASE 1");
+			//Kill Agent if Cell has already been visited - nothing to do here.
+			if (checkVisited(update.currentCell())) { 
+			return die();
+			}
+			phase = 2;
+			
+		case 2:
+			//System.out.println("ENTERED CASE 2");
+			// Beispiel, wie man Honig mit einer Ameise aufnehmen und transportieren kann.
+		        for (Agent.Payload payload : update.currentCell().payloadObjects()) {
+		            if(isHoney(payload)) {
+		            	honeyFound = true;
+		            	phase = 7; //will be 5 because of increm. in beginning
+		                // nimmt den Honig auf
+		                return takePayload(payload);
+		            }
+		        }
+		        
+		        phase = 3;
+			
+		
+		case 3: 
+			//System.out.println("ENTERED CASE 3");
+			//Mark Cell as visited
+			phase = 4;
+			return putVisitedObject(update); 
+		
+		case 4: 
+			//System.out.println("ENTERED CASE 4");
+			//Spawn child in next line if there is no child yet, performance and stuff
+			if(update.currentPosition().x() > 0 && !hasChild){ 
+				//Put Object with spawn coordinates to the child's new field to let it know where the spawn is.
+				InformationObject spawn = new spawnCoordinatesObject(spawnX, spawnY);
+				World.Index downLeft = getNeighbourIndex(Directions.DOWN_LEFT(), update);
+				phase = 5;
+				
+				return putInformationObjectTo(downLeft, spawn);
+				} 
+			//reset and move to next cell
+		case 5:
+			//System.out.println("ENTERED CASE 5");
+			if(update.currentPosition().x() > 0 && !hasChild){ 
+				
+				World.Index downLeft = getNeighbourIndex(Directions.DOWN_LEFT(), update);
+				phase = 6;
+				
+				spawnChild(downLeft);
+				}  
+			
+		case 6:
+			//System.out.println("ENTERED CASE 6");
+			phase = 1;
+			
+			
+			return moveTo(Directions.RIGHT(), update);
+			
+		case 7:
+			System.out.println("I FOUND HONEY");
+			System.out.println("MY SPAWN IS AT " + spawnX + "|" + spawnY);
+			return idle();
+			
+		case 8:
+			System.out.println("IF WORKED :)");
+			
+			
+		default: 
+			return die(); 
+			
+	} **/
+		System.out.println("TEST");
+		return die();
+	
+		
+		
+	
+	}
+	
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 
+	boolean honeyFound = false;
+	boolean hasChild = false;
+	
+    @Override
+    protected AgentMessages.AgentMessage onUpdate(Simulation.SimulationUpdate update) {
+    	
+
+    	//At first check if honey was already found by an Agent
+    	if(!honeyFound){
+    		if(checkVisited(update.currentCell())){
+    			return die();
+    		}
+    		/**
+    		// Beispiel, wie man Honig mit einer Ameise aufnehmen und transportieren kann.
+            for (Agent.Payload payload : update.currentCell().payloadObjects()) {
+            	System.out.println("HONEYCHECK");
+                if(isHoney(payload)) {
+                	honeyFound = true;
+                    // nimmt den Honig auf
+                    return takePayload(payload);
+                }
+            }
+            
+            
+    		if(!hasChild){
+    			spawnChild(getNeighbourIndex(Directions.DOWN(), update));
+    			hasChild = true;
+    		}
+    		putVisitedObject(update);
+    		return moveTo(Directions.RIGHT(), update);
+    	}
+    	
+    	
+    	
+    					
+    					
+    	
+    	
+       
+        
+        
+        // Ameise macht in dieser Runde nichts.
+        return die();
+    }
+    }**/
+
+
