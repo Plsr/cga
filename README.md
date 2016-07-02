@@ -1,5 +1,6 @@
 Computer Graphics and Animation
 ===
+Let's do Computer Graphics and then Animated them!
 
 ## Table of Contents
 - [About this Repository](#about-this-repository)
