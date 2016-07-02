@@ -4,7 +4,7 @@ Let's do Computer Graphics and then Animate them!
 
 ## Table of Contents
 - [About this Repository](#about-this-repository)
-- [Basci Math}(#basic-math)]
+- [Basic Math](#basic-math)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
