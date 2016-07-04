@@ -83,3 +83,13 @@ First, let's change the equation a little:
 Now we can fill in our given values and calculate (I'm jumping over several steps here because we did all of this earlier):  
 ![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/dot_product_solved.png)  
 *Example taken from [here](http://www.ghg-alsdorf.de/fachkonferenz/mathe/selbstdiagnose/skalarprodukt/test6.pdf)*
+
+### Cross Product
+The cross product returns a vector that is orthogonal to the two vectors its calculated with. The formula is  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/cross_product_formula.png)  
+There are different ways to go about calculating it, personally I use the following:  
+Given two vectors  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/cross_product_vectors.png)  
+you write down the first two rows again, then start "crossing" from the 2nd line:  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/cross_product_matrix.png)  
+This gives you the matrix for calculating.
