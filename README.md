@@ -61,3 +61,25 @@ This seems to be a reasonable angle to work with.
 
 
 ### Dot-Product (or Scalar Product)
+There are two formulas to calculate the dot product, the first and simpler one being  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/dot_product_simple.png)  
+This equation returns a real value based on which we can draw some conclusions about the angle the two vectors form:  
+
+```
+If the dot product is >0, the vectors point in the same direction (angle <90°).
+If the dot product is <0, the two vectors point in opposite directions (angle >90°).
+If the dot product is = 0, the two vectors form a 90° angle (because cos(90) = 0).
+```
+
+The second formula is a little more complex, but it can be formed to calculate the angle the two vectors form  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/dot_product_complex.png)  
+
+**Example:**  
+Given two vectors  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/dot_product_example_vectors.png)  
+what is the angle the two form?  
+First, let's change the equation a little:  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/dot_product_formed.png)  
+Now we can fill in our given values and calculate (I'm jumping over several steps here because we did all of this earlier):  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/dot_product_solved.png)  
+*Example taken from [here](http://www.ghg-alsdorf.de/fachkonferenz/mathe/selbstdiagnose/skalarprodukt/test6.pdf)*
