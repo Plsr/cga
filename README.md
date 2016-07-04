@@ -26,6 +26,7 @@ Given a vector
 It's length is  
 ![](http://www.sciweavers.org/tex2img.php?eq=%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%20%5Csqrt%7B%203%5E%7B2%7D%20%2B%205%5E%7B2%7D%20%2B%209%5E%7B2%7D%7D%20%5C%5C%5CLeftrightarrow%20%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%20%5Csqrt%7B%209%20%2B%2025%20%2B%2081%7D%5C%5C%0A%5CLeftrightarrow%20%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%20%5Csqrt%7B%20115%20%7D%20%5C%5C%0A%5CLeftrightarrow%20%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%2010.72%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
 
+
 ### Trigonometry
 For trigonometry, I'll have to switch over to the german naming because this is how I memorize this stuff since 10th grade (thanks, Franziska). First, the order in which I memorize is `sin`, `cos`, `tan`. The simple phrase to memorize the formulas is `GHAHGA`, pronounced "GAGA" (you know, like the [Queen Song](https://www.youtube.com/watch?v=azdwsXLmrHE)).  
 Here is where the german naming kicks in:
@@ -57,3 +58,6 @@ We have the Adjacent and the Hypotenuse given here, so when we go back to our `G
 This seems to be a reasonable angle to work with.
 
 *Sorry for the bad formatting in the equation. Example taken from [here](http://www.mathe-total.de/new-MS/sin-cos-tan-und-Saetze.pdf)*
+
+
+### Dot-Product (or Scalar Product)
