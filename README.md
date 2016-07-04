@@ -15,16 +15,16 @@ This file contains everything I learn for the exam and I may want to remember la
 
 ### Length of a vector
 Given a sample vector:  
-![](http://www.sciweavers.org/tex2img.php?eq=%20%5Coverrightarrow%7Ba%7D%20%20%3D%20%0A%5Cleft%28%0A%20%20%5Cbegin%7Barray%7D%7Bc%7D%0A%20%20%20x%20%26%20y%20%26%20z%20%0A%20%20%5Cend%7Barray%7D%20%5Cright%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/vector_example.png)  
 It's length is calculated via  
-![](http://www.sciweavers.org/tex2img.php?eq=%7C%7C%20%5Coverrightarrow%7Ba%7D%20%7C%7C%20%3D%20%20%5Csqrt%7B%20x%5E%7B2%7D%20%2B%20y%5E%7B2%7D%20%2B%20z%5E%7B2%7D%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/vector_length_example.png)  
 *Gentle reminder for myself: `||a||` is the [Euclidian norm](https://en.wikipedia.org/wiki/Norm_%28mathematics%29#Euclidean_norm)*
 
 **Example:**  
 Given a vector  
-![](http://www.sciweavers.org/tex2img.php?eq=%20%5Coverrightarrow%7Ba%7D%20%20%3D%20%5Cleft%28%0A%5Cbegin%7Barray%7D%7Bc%7D%0A3%20%26%205%20%26%209%0A%5Cend%7Barray%7D%20%5Cright%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/vector_example_real.png)  
 It's length is  
-![](http://www.sciweavers.org/tex2img.php?eq=%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%20%5Csqrt%7B%203%5E%7B2%7D%20%2B%205%5E%7B2%7D%20%2B%209%5E%7B2%7D%7D%20%5C%5C%5CLeftrightarrow%20%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%20%5Csqrt%7B%209%20%2B%2025%20%2B%2081%7D%5C%5C%0A%5CLeftrightarrow%20%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%20%5Csqrt%7B%20115%20%7D%20%5C%5C%0A%5CLeftrightarrow%20%7C%7C%20%5Coverrightarrow%7Ba%7D%20%20%7C%7C%20%3D%20%2010.72%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/vector_length_real.png)
 
 
 ### Trigonometry
@@ -54,7 +54,7 @@ Science:
   3m
 ```
 We have the Adjacent and the Hypotenuse given here, so when we go back to our `GHAHGA` memory trick, thats the `AH` part, hence the we have to use `cos`. Lets get calculating:  
-![](http://www.sciweavers.org/tex2img.php?eq=%5Ccos%28%20%5Calpha%20%29%20%3D%20%20%5Cfrac%7B3%7D%7B5%7D%20%5C%5C%0A%5CLeftrightarrow%20%5Ccos%28%20%5Calpha%20%29%20%3D%20%200.6%20%20%20%7C%20%20%5Ccos%5E%7B-1%7D%20%5C%5C%0A%5Calpha%20%3D%2053%2C13%20%5Ctextdegree&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)  
+![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/cos_example.png)  
 This seems to be a reasonable angle to work with.
 
 *Sorry for the bad formatting in the equation. Example taken from [here](http://www.mathe-total.de/new-MS/sin-cos-tan-und-Saetze.pdf)*
