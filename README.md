@@ -10,6 +10,8 @@ Let's do Computer Graphics and then Animate them!
   - [Dot-Product (or Scalar Product)](#dot-product-or-scalar-product)
   - [Cross Product](#cross-product)
 - [OpenGL Basics](#opengl-basics)
+  - [Vertex Buffer Object (VBO)](#vertex-buffer-object-vbo)
+  - [Vertex Array Object (VAO)](#vertex-array-object-vao)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -124,3 +126,26 @@ Upload Data to the active (speak: bound) VBO.
 **`glDeleteBuffers(int bufferID)`**  
 Delete a buffer.
 * `int bufferID`: ID of the buffer to be deleted
+
+### Vertex Array Object (VAO)
+Describe how vertex attributes are stored in a vertex buffer objects (i.e. their properties).
+
+**`int glGenVertexArrays();`**  
+Generates a new VAO and returns its ID
+
+**`glBindVertexArray(int vaoID);`**  
+Use a previously created array as the active VAO.  
+* `int vaoID`: The ID of the array to be bound
+
+**`public static void glVertexAttribPointer(int index, int size, int type, boolean normalized, int stride, java.nio.ByteBuffer pointer)`**  
+Specifies the location and organization of a vertex attribute array.  
+* `int index`: the index of the generic vertex attribute to be modified (user specified)  
+* `int size`: the number of values per vertex that are stored in the array (1 - 4)  
+* `int type`: data type of each component in the array (i.e. `GL_FLOAT`, `GL_DOUBLE`, ...)
+* `boolean normalized`: whether fixed-point data values should be normalized
+* `int stride`:  the byte offset between consecutive generic vertex attributes
+* `java.nio.ByteBuffer pointer`: memory address where data begins in the bound array
+
+**`glDeleteVertexArrays(int vaoID);`**  
+Delete an array.
+* `int vaoID`: ID of the array to be deleted
