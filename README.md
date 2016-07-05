@@ -5,11 +5,11 @@ Let's do Computer Graphics and then Animate them!
 ## Table of Contents
 - [About this Repository](#about-this-repository)
 - [Basic Math](#basic-math)
-  - [Length of a vector](#Length-of-a-vector)
-  - [Trigonometry](#Trigonometry)
-  - [Dot-Product (or Scalar Product)](#Dot-Product-or-Scalar-Product)
-  - [Cross Product](#Cross-Product)
-- [OpenGL Basics](#OpenGL Basics)
+  - [Length of a vector](#length-of-a-vector)
+  - [Trigonometry](#trigonometry)
+  - [Dot-Product (or Scalar Product)](#dot-product-or-scalar-product)
+  - [Cross Product](#cross-product)
+- [OpenGL Basics](#openGL-basics)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
