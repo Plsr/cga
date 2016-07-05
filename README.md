@@ -5,6 +5,11 @@ Let's do Computer Graphics and then Animate them!
 ## Table of Contents
 - [About this Repository](#about-this-repository)
 - [Basic Math](#basic-math)
+  - [Length of a vector](#Length-of-a-vector)
+  - [Trigonometry](#Trigonometry)
+  - [Dot-Product (or Scalar Product)](#Dot-Product-or-Scalar-Product)
+  - [Cross Product](#Cross-Product)
+- [OpenGL Basics](#OpenGL Basics)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -93,3 +98,6 @@ Given two vectors
 you write down the first two rows again, then start "crossing" from the 2nd line:  
 ![](https://raw.githubusercontent.com/Plsr/cga/master/images_equations/cross_product_matrix.png)  
 This gives you the matrix for calculating.
+
+
+## OpenGL Basics
