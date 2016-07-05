@@ -9,7 +9,7 @@ Let's do Computer Graphics and then Animate them!
   - [Trigonometry](#trigonometry)
   - [Dot-Product (or Scalar Product)](#dot-product-or-scalar-product)
   - [Cross Product](#cross-product)
-- [OpenGL Basics](#openGL-basics)
+- [OpenGL Basics](#opengl-basics)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -101,3 +101,26 @@ This gives you the matrix for calculating.
 
 
 ## OpenGL Basics
+
+### Vertex Buffer Object (VBO)
+A buffer storing data that is needed for rendering. The data is stored directly on the GPU memory, not in the system memory, making it performant. This is merely memory allocation, it contains information on how much memory is needed, but not about how exactly vertex attributes are stored. Following are its core functions.  
+
+**`int glGenBuffer();`**  
+Generates a new VBO and returns its ID
+
+**`glBindBuffer(int target, int bufferID);`**  
+Use a previously created buffer as the active VBO.  
+* `int target`: either  
+  * `GL_ARRAY_BUFFER` if the buffer contains actual data or
+  * `GL_ELEMENT_ARRAY_BUFFER` if the buffer contains indices into another VBO
+* `int bufferID`: The ID of the buffer to be bound
+
+**`glBufferData(int target, java.nio.ByteBuffer data, int usage)`**  
+Upload Data to the active (speak: bound) VBO.
+* `int target`: see `glBindBuffer();`
+* `java.nio.ByteBuffer data`: Pointer to the first data element to be uploaded
+* `int usage`: expected usage pattern (i.e. `GL_STATIC_DRAW`)
+
+**`glDeleteBuffers(int bufferID)`**  
+Delete a buffer.
+* `int bufferID`: ID of the buffer to be deleted
