@@ -13,6 +13,9 @@ Let's do Computer Graphics and then Animate them!
   - [Vertex Buffer Object (VBO)](#vertex-buffer-object-vbo)
   - [Vertex Array Object (VAO)](#vertex-array-object-vao)
   - [Rendering](#rendering)
+- [GLSL](#glsl)
+  - [What is GLSL?](#what-is-glsl)
+  - [The rendering Pipeline](#the-rendering-pipeline)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -166,3 +169,18 @@ This renders whole arrays (speak: all attached VBOs)
 * `int count`: The number of elements.  
 * `int type`: data type of each component in the array (i.e. `GL_FLOAT`, `GL_DOUBLE`, ...)  
 * `java.nio.ByteBuffer indices`: pointer to start inside active index array   
+
+## GLSL
+
+### What is GLSL?
+GLSL is the OpenGL Shader Language. It's a high level Shader Language based on a C Syntax.
+
+### The rendering Pipeline
+```
+._______________        _______________      _______________      _______________
+|               |      |               |    |               |    |               |
+| Vertex Shader | =>   | Tesselation   | => | Geometry      | => | Fragment      |
+| Stage         |      | Shader Stage  |    | Shader Stage  |    | Shader Stage  |  
+|_______________|      |_______________|    |_______________|    |_______________|
+```
+A shader stage is a programmable part of the rendering pipeline, but every pipeline only consists of a single shader program. Each shader program consists of one or more shaders.
