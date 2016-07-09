@@ -18,6 +18,7 @@ Let's do Computer Graphics and then Animate them!
   - [The rendering Pipeline](#the-rendering-pipeline)
   - [Storage Qualifiers](#storage-qualifiers)
   - [Layout Qualifiers](#layout-qualifiers)
+  - [Using a shader](#using-a-shader)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -208,3 +209,25 @@ The layout qualifier assigns the vertex attributes in the VAO to variables in th
 * `id`: The ID we specified in [`glVertexAttribPointer`](vertex-array-object-vao)
 * `type`: The required data type
 * `name`: A user-defined name of the variable
+
+### Using a shader
+The first step is to create at least one shader we want to use in our program:  
+`int glCreateShader(type);` where type defines the type of shader we're creating (e.g. `GL_VERTEX_SHADER` or `GL_FRAGMENT_SHADER`).
+
+Afterwards, we set one or more char-arrays as the source of the shader:  
+`void glShaderSource(int shaderID, java.lang.CharSequence);`
+
+Lastly, we compile the shader to make it executable by the GPU:  
+`void glCompileShader(int shaderID);`
+
+In the second step, we'll create a program that the shaders will be attached to.  
+Creating a program is similar to creating a shader:  
+`int glCreateProgram();`  
+
+We then can attach one or more shaders to the program:  
+`void glAttachShader(int programID, int shaderID);`  
+
+When we're done attaching all shaders, we link the program to make it executable:  
+`void glLinkProgram(int programID);`
+
+We now have an executable shader program with all our shader attached to it. To run the program, we can simply call `void glUseProgram(int programID);`
