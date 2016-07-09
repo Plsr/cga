@@ -16,6 +16,8 @@ Let's do Computer Graphics and then Animate them!
 - [GLSL](#glsl)
   - [What is GLSL?](#what-is-glsl)
   - [The rendering Pipeline](#the-rendering-pipeline)
+  - [Storage Qualifiers](#storage-qualifiers)
+  - [Layout Qualifiers](#layout-qualifiers)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -184,3 +186,25 @@ GLSL is the OpenGL Shader Language. It's a high level Shader Language based on a
 |_______________|      |_______________|    |_______________|    |_______________|
 ```
 A shader stage is a programmable part of the rendering pipeline, but every pipeline only consists of a single shader program. Each shader program consists of one or more shaders.
+
+### Storage Qualifiers
+Storage qualifiers are needed for the communication between the shader and the application. There are three of them:  
+* `in`:
+  * Linkage from previous state into the shader
+  * Input per vertex or per fragment (Read Only)
+* `out`:
+  * Similar to `in`, linkage out from the shader to next step
+* `uniform`: Input to any shader program from OpenGL
+
+#### Uniforms
+Uniforms are user-provided variables from application program to the shaders. To upload uniforms, three steps are required:  
+1. The Shader program must be enabled before uniforms can be uploaded. This is achieved with the function `glUseProgram(int programID);`
+2. The memory location of the variable must be found in the shader program `int glGetUniformLocation(int program, String name);`
+3. For uploading, there are different methods available appropriate to what the user tries to upload.
+
+### Layout Qualifiers
+The layout qualifier assigns the vertex attributes in the VAO to variables in the shader. This is being achieved with the following function:  
+**`layout(location = id) in type name;`**  
+* `id`: The ID we specified in [`glVertexAttribPointer`](vertex-array-object-vao)
+* `type`: The required data type
+* `name`: A user-defined name of the variable
