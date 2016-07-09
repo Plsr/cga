@@ -12,6 +12,7 @@ Let's do Computer Graphics and then Animate them!
 - [OpenGL Basics](#opengl-basics)
   - [Vertex Buffer Object (VBO)](#vertex-buffer-object-vbo)
   - [Vertex Array Object (VAO)](#vertex-array-object-vao)
+  - [Rendering](#rendering)
 
 ## About this Repository
 This is my material I worked with for the course Computer Graphics and Animation at the Cologne University of Applied Sciences.  
@@ -149,3 +150,19 @@ Specifies the location and organization of a vertex attribute array.
 **`glDeleteVertexArrays(int vaoID);`**  
 Delete an array.
 * `int vaoID`: ID of the array to be deleted
+
+### Rendering
+For rendering VBOs, there are two functions available.  
+
+**`glDrawArrays(int mode, int first, int count);`**  
+This renders whole arrays (speak: all attached VBOs)
+* `int mode`: The drawing primitive (eg `GL_TRIANGLES`)  
+* `int first`: Starting point of the function, the first primitive to be drawn  
+* `int count`: The end point of the function. Everything in between will be rendered.
+
+**`glDrawElements(int mode, int count, int type,  java.nio.ByteBuffer indices);`**  
+This renders whole arrays (speak: all attached VBOs)
+* `int mode`: The drawing primitive (eg `GL_TRIANGLES`)  
+* `int count`: The number of elements.  
+* `int type`: data type of each component in the array (i.e. `GL_FLOAT`, `GL_DOUBLE`, ...)  
+* `java.nio.ByteBuffer indices`: pointer to start inside active index array   
